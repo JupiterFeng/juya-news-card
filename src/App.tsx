@@ -529,7 +529,7 @@ const App: React.FC = () => {
                     letterSpacing: '0.5px',
                   }}
                 >
-                  QUICK PREVIEW
+                  示例数据：点击查看不同卡片数量效果。
                 </Typography>
                 <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
                   {MOCK_SCENARIOS.map((item, index) => (
