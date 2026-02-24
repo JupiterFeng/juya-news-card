@@ -1,0 +1,1745 @@
+{
+  "version": "1.0.0",
+  "generatedAt": 1771842952,
+  "templates": {
+    "abstractArt": {
+      "modifiedTime": 1768464446,
+      "filePath": "src/templates/abstractArt.tsx",
+      "fileSize": 11947,
+      "name": "抽象艺术",
+      "description": "网格比例与形色秩序的抽象风格，几何抽象与抒情抽象",
+      "icon": "dashboard",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "adobeSpectrum": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/adobeSpectrum.tsx",
+      "fileSize": 10161,
+      "name": "创意工具光谱",
+      "description": "创意软件工作台风格",
+      "icon": "brush",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "ambientUi": {
+      "modifiedTime": 1768464580,
+      "filePath": "src/templates/ambientUi.tsx",
+      "fileSize": 15373,
+      "name": "环境式界面",
+      "description": "低注意力可读，场景化与环境提示",
+      "icon": "wb_twilight",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "amigaWorkbench": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/amigaWorkbench.tsx",
+      "fileSize": 11392,
+      "name": "复古工作台",
+      "description": "1985年复古工作台风格 - 高对比、像素化、3D凹凸控件",
+      "icon": "computer",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "androidHolo": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/androidHolo.tsx",
+      "fileSize": 11992,
+      "name": "霓虹硬边界面",
+      "description": "2011年霓虹蓝硬边风格 - 强对比与科技感",
+      "icon": "smartphone",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "antDesign": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/antDesign.tsx",
+      "fileSize": 9972,
+      "name": "中台规范界面",
+      "description": "中后台规范化组件风格",
+      "icon": "apps",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "appleEvent": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/appleEvent.tsx",
+      "fileSize": 11482,
+      "name": "极简发布会",
+      "description": "极致简约的科技发布会风格",
+      "icon": "campaign",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "aquaGlossy": {
+      "modifiedTime": 1768646181,
+      "filePath": "src/templates/aquaGlossy.tsx",
+      "fileSize": 14517,
+      "name": "水晶高光风格",
+      "description": "玻璃高光、反光、圆角的Web2.0质感",
+      "icon": "auto_awesome",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "atlassianDesign": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/atlassianDesign.tsx",
+      "fileSize": 9732,
+      "name": "协作蓝图",
+      "description": "高信息密度协作工具风格",
+      "icon": "grid_view",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "aurora": {
+      "modifiedTime": 1768465015,
+      "filePath": "src/templates/aurora.tsx",
+      "fileSize": 12501,
+      "name": "极光风",
+      "description": "大面积渐变光晕氛围风格",
+      "icon": "glow",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "baimiaoStyle": {
+      "modifiedTime": 1768465020,
+      "filePath": "src/templates/baimiaoStyle.tsx",
+      "fileSize": 11076,
+      "name": "白描",
+      "description": "纯线条造型的传统白描风格，以线塑形、疏密有致",
+      "icon": "gesture",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "bauhaus": {
+      "modifiedTime": 1771314216,
+      "filePath": "src/templates/bauhaus.tsx",
+      "fileSize": 10520,
+      "name": "包豪斯",
+      "description": "几何原色功能主义包豪斯风格",
+      "icon": "category",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "behavioralNudge": {
+      "modifiedTime": 1768691490,
+      "filePath": "src/templates/behavioralNudge.tsx",
+      "fileSize": 13664,
+      "name": "行为设计助推",
+      "description": "选择架构，默认项突出与渐进式提示",
+      "icon": "psychology",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "bentoGrid": {
+      "modifiedTime": 1771655389,
+      "filePath": "src/templates/bentoGrid.tsx",
+      "fileSize": 10164,
+      "name": "便当格风格",
+      "description": "模块化网格布局，强调整洁分区与信息分层",
+      "icon": "grid_view",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "beos": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/beos.tsx",
+      "fileSize": 8244,
+      "name": "轻量媒体桌面",
+      "description": "1995年轻量媒体桌面风格 - 简洁快速与多媒体友好",
+      "icon": "play_circle",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "biophilicDesign": {
+      "modifiedTime": 1768691794,
+      "filePath": "src/templates/biophilicDesign.tsx",
+      "fileSize": 9371,
+      "name": "亲自然设计",
+      "description": "自然光、材质与节律，营造呼吸般的舒适空间",
+      "icon": "nature",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "blackWhiteEditorial": {
+      "modifiedTime": 1768714380,
+      "filePath": "src/templates/blackWhiteEditorial.tsx",
+      "fileSize": 9360,
+      "name": "黑白社论",
+      "description": "强对比黑白摄影 + 大字号排版；适合时尚、艺术、建筑类品牌",
+      "icon": "filter_b_and_w",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "blogGlass": {
+      "modifiedTime": 1771314216,
+      "filePath": "src/templates/blogGlass.tsx",
+      "fileSize": 9134,
+      "name": "博客毛玻璃",
+      "description": "仿博客毛玻璃卡片风格",
+      "icon": "blur_on",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "blueGreenLandscape": {
+      "modifiedTime": 1771327027,
+      "filePath": "src/templates/blueGreenLandscape.tsx",
+      "fileSize": 9767,
+      "name": "青绿山水",
+      "description": "石青石绿富丽设色的青绿山水风格，装饰性强、贵而不艳",
+      "icon": "filter_hdr",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "bootstrap": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/bootstrap.tsx",
+      "fileSize": 7550,
+      "name": "经典组件库",
+      "description": "标准化组件系统风格",
+      "icon": "grid_on",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "braunFunctional": {
+      "modifiedTime": 1771657819,
+      "filePath": "src/templates/braunFunctional.tsx",
+      "fileSize": 8569,
+      "name": "功能主义工业设计",
+      "description": "克制设计语言：少即是多，功能优先",
+      "icon": "settings",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "breezeFlat": {
+      "modifiedTime": 1771657806,
+      "filePath": "src/templates/breezeFlat.tsx",
+      "fileSize": 9385,
+      "name": "轻盈扁平界面",
+      "description": "2014年桌面扁平化风格 - 清爽可读、轻量化层级",
+      "icon": "widgets",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "brutalism": {
+      "modifiedTime": 1770027429,
+      "filePath": "src/templates/brutalism.tsx",
+      "fileSize": 8005,
+      "name": "粗野主义",
+      "description": "强对比粗野主义设计风格",
+      "icon": "square",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "calmTechnology": {
+      "modifiedTime": 1771314216,
+      "filePath": "src/templates/calmTechnology.tsx",
+      "fileSize": 11194,
+      "name": "平静技术",
+      "description": "非侵入式设计，柔和色彩与环境提示",
+      "icon": "nights_stay",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "cardFirst": {
+      "modifiedTime": 1771314216,
+      "filePath": "src/templates/cardFirst.tsx",
+      "fileSize": 7772,
+      "name": "卡片化瓷砖",
+      "description": "强模块化，适配多入口；适合内容聚合、仪表盘、移动端首页",
+      "icon": "grid_view",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "cartoonModern": {
+      "modifiedTime": 1770027473,
+      "filePath": "src/templates/cartoonModern.tsx",
+      "fileSize": 9318,
+      "name": "卡通现代主义",
+      "description": "平面化几何造型大色块的UPA风格，造型与构成是主角",
+      "icon": "category",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "cdeDesktop": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/cdeDesktop.tsx",
+      "fileSize": 8309,
+      "name": "CDE桌面",
+      "description": "1993年 CDE 风格 - 商业Unix工作站标准桌面、面板化组织",
+      "icon": "dashboard",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "celLookComic": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/celLookComic.tsx",
+      "fileSize": 9273,
+      "name": "赛璐璐风格",
+      "description": "线稿清晰平涂分区阴影的赛璐璐风格，硬边阴影设计成形",
+      "icon": "animation",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "chibiStyle": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/chibiStyle.tsx",
+      "fileSize": 10243,
+      "name": "Q版萌系",
+      "description": "头大身小特征符号化的Q版风格，表情极夸张",
+      "icon": "sentiment_very_satisfied",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "chromeosMaterialYou": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/chromeosMaterialYou.tsx",
+      "fileSize": 9834,
+      "name": "卡片化材质系统",
+      "description": "2023年卡片化材质风格 - 圆润控件、现代面板",
+      "icon": "laptop",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "cinematicFilm": {
+      "modifiedTime": 1771328667,
+      "filePath": "src/templates/cinematicFilm.tsx",
+      "fileSize": 9501,
+      "name": "电影感",
+      "description": "宽银幕构图、暗部层次、氛围光；适合品牌片、产品故事页、发布会 KV",
+      "icon": "theaters",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "claudeStyle": {
+      "modifiedTime": 1771655389,
+      "filePath": "src/templates/claudeStyle.tsx",
+      "fileSize": 13722,
+      "name": "暖调卡片反转",
+      "description": "白色卡片包裹彩色标题块的反转风格",
+      "icon": "space_dashboard",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "claymorphism": {
+      "modifiedTime": 1771328667,
+      "filePath": "src/templates/claymorphism.tsx",
+      "fileSize": 8715,
+      "name": "黏土拟态",
+      "description": "圆润3D软阴影黏土风格",
+      "icon": "bubble_chart",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "claySoft3D": {
+      "modifiedTime": 1771328667,
+      "filePath": "src/templates/claySoft3d.tsx",
+      "fileSize": 10350,
+      "name": "软3D",
+      "description": "圆润软材质；适合新手引导、亲和型品牌",
+      "icon": "bubble_chart",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "cleanLineComic": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/cleanLineComic.tsx",
+      "fileSize": 9626,
+      "name": "清线漫画",
+      "description": "线条均匀干净的清线风格，阴影少、色块清爽、信息极清晰",
+      "icon": "gesture",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "collageScrapbook": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/collageScrapbook.tsx",
+      "fileSize": 15979,
+      "name": "拼贴手账风格",
+      "description": "胶带效果、手写标注、纸张纹理的拼贴设计",
+      "icon": "style",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "collageStyle": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/collageStyle.tsx",
+      "fileSize": 10814,
+      "name": "拼贴艺术",
+      "description": "材质混合剪裁边缘的拼贴风格，适合艺术与传播",
+      "icon": "content_cut",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "compositionExperimental": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/compositionExperimental.tsx",
+      "fileSize": 10573,
+      "name": "构图实验",
+      "description": "突破常规网格的动态构图风格，视觉张力与不对称平衡",
+      "icon": "grid_on",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "cubism": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/cubism.tsx",
+      "fileSize": 10025,
+      "name": "立体主义",
+      "description": "多视角分解重组的立体主义风格，几何面拼装、结构化空间",
+      "icon": "category",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "cutoutAnimation": {
+      "modifiedTime": 1770032751,
+      "filePath": "src/templates/cutoutAnimation.tsx",
+      "fileSize": 9630,
+      "name": "剪影",
+      "description": "剪纸皮影效果的剪影动画风格，分层叠加与关节活动",
+      "icon": "content_cut",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "deconstructivism": {
+      "modifiedTime": 1770032800,
+      "filePath": "src/templates/deconstructivism.tsx",
+      "fileSize": 8197,
+      "name": "解构主义",
+      "description": "解构主义风格：打破秩序，错位切割，隐藏秩序下的视觉张力",
+      "icon": "layers_clear",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "denseProductivity": {
+      "modifiedTime": 1770032831,
+      "filePath": "src/templates/denseProductivity.tsx",
+      "fileSize": 6847,
+      "name": "高密度效率UI",
+      "description": "表格/快捷键/紧凑间距；适合专业工具、交易、数据后台",
+      "icon": "dashboard",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "digitalEffects": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/digitalEffects.tsx",
+      "fileSize": 10798,
+      "name": "数字高光效",
+      "description": "强光效粒子镜头光斑的数字合成风格，画面更电影化",
+      "icon": "blur_on",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "disneyClassic": {
+      "modifiedTime": 1771655389,
+      "filePath": "src/templates/disneyClassic.tsx",
+      "fileSize": 9633,
+      "name": "经典全动画",
+      "description": "动作连贯、形变夸张且结构严谨的经典全动画风格",
+      "icon": "auto_awesome",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "duotonePhotography": {
+      "modifiedTime": 1771328667,
+      "filePath": "src/templates/duotonePhotography.tsx",
+      "fileSize": 8377,
+      "name": "双色摄影",
+      "description": "用双色覆盖统一品牌调性；适合活动页、招聘页、专题封面",
+      "icon": "filter_vintage",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "dynamicExplosion": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/dynamicExplosion.tsx",
+      "fileSize": 11539,
+      "name": "动势爆发",
+      "description": "夸张变形速度线的爆发动势风格，能量释放与视觉冲击",
+      "icon": "flash_on",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "dynamicIdentity": {
+      "modifiedTime": 1771328667,
+      "filePath": "src/templates/dynamicIdentity.tsx",
+      "fileSize": 10734,
+      "name": "动态视觉识别",
+      "description": "变形、生成、适配的规则系统，充满活力的视觉冲击",
+      "icon": "auto_awesome",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "editorialMagazine": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/editorialMagazine.tsx",
+      "fileSize": 9078,
+      "name": "杂志社论风",
+      "description": "大标题精排版图文节奏",
+      "icon": "article",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "etchingStyle": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/etchingStyle.tsx",
+      "fileSize": 10472,
+      "name": "铜版蚀刻",
+      "description": "细密线条交叉排线的铜版风格，用线密度做灰阶",
+      "icon": "edit",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "expressionism": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/expressionism.tsx",
+      "fileSize": 9446,
+      "name": "表现主义",
+      "description": "扭曲为情绪服务的表现主义风格，形体可变形、笔触粗粝",
+      "icon": "sentiment_very_dissatisfied",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "expressiveType": {
+      "modifiedTime": 1771585966,
+      "filePath": "src/templates/expressiveType.tsx",
+      "fileSize": 9272,
+      "name": "表现性标题",
+      "description": "大标题作为主视觉，夸张字形；适合营销页、活动 KV",
+      "icon": "title",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "fauvism": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/fauvism.tsx",
+      "fileSize": 9895,
+      "name": "野兽派",
+      "description": "高饱和情绪色的野兽派风格，色彩主导、互补色冲击",
+      "icon": "color_lens",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "filmGrainAnalog": {
+      "modifiedTime": 1771328667,
+      "filePath": "src/templates/filmGrainAnalog.tsx",
+      "fileSize": 9447,
+      "name": "胶片模拟",
+      "description": "胶片颗粒、色偏、漏光；适合生活方式品牌、内容平台、情绪表达",
+      "icon": "photo_camera",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "flatDesign": {
+      "modifiedTime": 1771657832,
+      "filePath": "src/templates/flatDesign.tsx",
+      "fileSize": 7216,
+      "name": "扁平设计",
+      "description": "纯色扁平化设计风格",
+      "icon": "rectangle",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "flatVector": {
+      "modifiedTime": 1771327251,
+      "filePath": "src/templates/flatVector.tsx",
+      "fileSize": 6580,
+      "name": "扁平插画",
+      "description": "高对比度、圆角设计；适合创意演示、产品功能介绍",
+      "icon": "palette",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "flowerBird": {
+      "modifiedTime": 1771372646,
+      "filePath": "src/templates/flowerBird.tsx",
+      "fileSize": 9430,
+      "name": "花鸟画",
+      "description": "以生机与格调为重的花鸟风格，笔墨分层、姿态气息",
+      "icon": "local_florist",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "frutigerAero": {
+      "modifiedTime": 1771586304,
+      "filePath": "src/templates/frutigerAero.tsx",
+      "fileSize": 10399,
+      "name": "果味千禧风格",
+      "description": "蓝绿渐变、光晕、气泡的2005年清爽未来感",
+      "icon": "water_drop",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "generativeParametric": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/generativeParametric.tsx",
+      "fileSize": 10379,
+      "name": "生成式参数化风格",
+      "description": "算法生成背景图案、粒子场的科技设计",
+      "icon": "pattern",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "geometricMinimal": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/geometricMinimal.tsx",
+      "fileSize": 7964,
+      "name": "几何极简",
+      "description": "用基础几何形构成视觉系统；适合科技、建筑、工具产品",
+      "icon": "category",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "ghibliStyle": {
+      "modifiedTime": 1771655389,
+      "filePath": "src/templates/ghibliStyle.tsx",
+      "fileSize": 9923,
+      "name": "自然叙事动画",
+      "description": "自然环境信息量高的叙事动画风格，细节层次清楚、日常动作写实",
+      "icon": "nature_people",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "githubPrimer": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/githubPrimer.tsx",
+      "fileSize": 7253,
+      "name": "开发者深色面板",
+      "description": "开发者工具深色系统风格",
+      "icon": "code",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "glassmorphism": {
+      "modifiedTime": 1771314216,
+      "filePath": "src/templates/glassmorphism.tsx",
+      "fileSize": 8844,
+      "name": "玻璃拟态",
+      "description": "毛玻璃半透明设计风格",
+      "icon": "blur_on",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "gnome3Adwaita": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/gnome3Adwaita.tsx",
+      "fileSize": 8087,
+      "name": "极简顶栏桌面",
+      "description": "2011年极简顶栏桌面风格 - 活动概览与统一控件体系",
+      "icon": "view_day",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "gongbiStyle": {
+      "modifiedTime": 1771323114,
+      "filePath": "src/templates/gongbiStyle.tsx",
+      "fileSize": 8313,
+      "name": "工笔画",
+      "description": "细密线条、多层设色的传统工笔风格，线条精致、色彩雅致",
+      "icon": "brush",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "googleMaterial": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/googleMaterial.tsx",
+      "fileSize": 9400,
+      "name": "灵动材质",
+      "description": "多彩活泼的现代材质设计风格",
+      "icon": "explore",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "govukDesign": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/govukDesign.tsx",
+      "fileSize": 7348,
+      "name": "公共服务规范界面",
+      "description": "公共服务可访问性优先风格",
+      "icon": "account_balance",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "grainNoise": {
+      "modifiedTime": 1770465969,
+      "filePath": "src/templates/grainNoise.tsx",
+      "fileSize": 9273,
+      "name": "颗粒噪点风格",
+      "description": "噪点纹理叠加渐变，科技感十足",
+      "icon": "grain",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "gridPoster": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/gridPoster.tsx",
+      "fileSize": 10156,
+      "name": "海报网格",
+      "description": "以海报逻辑组织页面：强网格、强对齐、留白；适合展览、文化项目",
+      "icon": "grid_on",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "halftoneComic": {
+      "modifiedTime": 1771414564,
+      "filePath": "src/templates/halftoneComic.tsx",
+      "fileSize": 7286,
+      "name": "网点漫画",
+      "description": "网点阴影、漫画线、夸张拟声；适合年轻化营销、游戏、娱乐",
+      "icon": "bubble_chart",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "heavyInk": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/heavyInk.tsx",
+      "fileSize": 8914,
+      "name": "重墨黑影",
+      "description": "大面积黑强对比的重墨风格，阴影硬朗、情绪压迫感强",
+      "icon": "invert_colors_off",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "highLowKey": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/highLowKey.tsx",
+      "fileSize": 8914,
+      "name": "高调低调",
+      "description": "高调干净或低调神秘；适合电商主图、科技产品、香氛/酒类氛围页",
+      "icon": "tonality",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "holographicIridescent": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/holographicIridescent.tsx",
+      "fileSize": 10405,
+      "name": "全息镭射风格",
+      "description": "彩虹渐变、珠光效果的全息设计",
+      "icon": "auto_awesome",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "hybrid2D3D": {
+      "modifiedTime": 1771656429,
+      "filePath": "src/templates/hybrid2D3D.tsx",
+      "fileSize": 14535,
+      "name": "2D+3D混合",
+      "description": "三维渲染二维角色融合的混合风格，空间深度与层次感",
+      "icon": "view_in_ar",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "hyperMinimal": {
+      "modifiedTime": 1771332774,
+      "filePath": "src/templates/hyperMinimal.tsx",
+      "fileSize": 6766,
+      "name": "超极简风格",
+      "description": "纯排版、大量留白、字体主导的极简设计",
+      "icon": "text_fields",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "ibmCarbon": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/ibmCarbon.tsx",
+      "fileSize": 7819,
+      "name": "工业网格系统",
+      "description": "企业级深色网格化设计系统风格",
+      "icon": "business_center",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "impressionism": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/impressionism.tsx",
+      "fileSize": 9157,
+      "name": "印象派",
+      "description": "光色瞬间的印象派风格，短笔触并置、弱轮廓、色彩写光",
+      "icon": "palette",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "inclusiveDesign": {
+      "modifiedTime": 1771328667,
+      "filePath": "src/templates/inclusiveDesign.tsx",
+      "fileSize": 9040,
+      "name": "包容性通用设计",
+      "description": "高对比度、大字体、清晰边界的无障碍设计",
+      "icon": "accessibility",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "inkLandscape": {
+      "modifiedTime": 1771372637,
+      "filePath": "src/templates/inkLandscape.tsx",
+      "fileSize": 9697,
+      "name": "水墨山水",
+      "description": "层层远近、气韵流动的水墨山水空间，虚实相生、可游可居",
+      "icon": "landscape",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "instructionalManual": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/instructionalManual.tsx",
+      "fileSize": 13284,
+      "name": "说明书式设计",
+      "description": "最少文字分步表达，步骤编号与线稿风格",
+      "icon": "menu_book",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "ios7Flat": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/ios7Flat.tsx",
+      "fileSize": 9329,
+      "name": "轻透扁平界面",
+      "description": "2013年轻透扁平风格 - 半透明层、细线图标",
+      "icon": "smartphone",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "isometric3D": {
+      "modifiedTime": 1771328667,
+      "filePath": "src/templates/isometric3D.tsx",
+      "fileSize": 12756,
+      "name": "等距3D",
+      "description": "用等距空间讲产品结构；适合 B 端方案、系统架构展示",
+      "icon": "view_in_ar",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "japandi": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/japandi.tsx",
+      "fileSize": 8735,
+      "name": "日北融合",
+      "description": "日式克制与北欧温暖的完美平衡",
+      "icon": "self_improvement",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "japaneseFolk": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/japaneseFolk.tsx",
+      "fileSize": 10012,
+      "name": "和风插画",
+      "description": "复古配色、图案纹样的和风插画风格，大正浪漫感、柔和怀旧",
+      "icon": "waves",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "kawaiiCute": {
+      "modifiedTime": 1771586304,
+      "filePath": "src/templates/kawaiiCute.tsx",
+      "fileSize": 10055,
+      "name": "可爱系风格",
+      "description": "超大圆角、柔和粉彩的可爱设计",
+      "icon": "favorite",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "limitedAnimation": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/limitedAnimation.tsx",
+      "fileSize": 9835,
+      "name": "有限动画",
+      "description": "帧数省依赖镜头切换的有限动画风格，设计图形化易重复",
+      "icon": "fast_forward",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "lineIllustration": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/lineIllustration.tsx",
+      "fileSize": 8737,
+      "name": "线描插画",
+      "description": "线条统一留白干净的线描风格，适合说明与科普",
+      "icon": "show_chart",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "liquidBlobmorphism": {
+      "modifiedTime": 1771327258,
+      "filePath": "src/templates/liquidBlobmorphism.tsx",
+      "fileSize": 9969,
+      "name": "液态有机风格",
+      "description": "有机blob形状、渐变填充的流动设计",
+      "icon": "bubble_chart",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "liquidGlass": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/liquidGlass.tsx",
+      "fileSize": 10260,
+      "name": "液态玻璃界面",
+      "description": "2025年实时渲染液态玻璃风格 - 环境响应与通透层次",
+      "icon": "water_drop",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "lowPoly3D": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/lowPoly3d.tsx",
+      "fileSize": 11349,
+      "name": "低多边形3D",
+      "description": "几何切面、轻量；适合解释型插画、游戏与科技视觉",
+      "icon": "hexagon",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "material3Expressive": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/material3Expressive.tsx",
+      "fileSize": 8832,
+      "name": "高表现材质界面",
+      "description": "2025年高表现材质风格 - 大胆形状与情绪化表达",
+      "icon": "brush",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "materialHonesty": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/materialHonesty.tsx",
+      "fileSize": 10081,
+      "name": "材料诚实",
+      "description": "真实材质表达，不假装成别的材质",
+      "icon": "layers",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "materialYou": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/materialYou.tsx",
+      "fileSize": 8517,
+      "name": "动态配色界面",
+      "description": "动态配色驱动的个性化界面风格",
+      "icon": "palette",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "memphis": {
+      "modifiedTime": 1771328667,
+      "filePath": "src/templates/memphis.tsx",
+      "fileSize": 7816,
+      "name": "孟菲斯",
+      "description": "跳跃配色几何图案孟菲斯风格",
+      "icon": "stars",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "metroModern": {
+      "modifiedTime": 1771657838,
+      "filePath": "src/templates/metroModern.tsx",
+      "fileSize": 7625,
+      "name": "现代磁贴界面",
+      "description": "2010年现代磁贴风格 - 大字排版、纯色块、内容优先",
+      "icon": "grid_view",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "microInteraction": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/microInteraction.tsx",
+      "fileSize": 9993,
+      "name": "微交互",
+      "description": "强反馈（hover/press/loading）、轻量愉悦；适合 ToC 产品、工具类体验提升",
+      "icon": "touch_app",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "microsoftFluent": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/microsoftFluent.tsx",
+      "fileSize": 11257,
+      "name": "清透流体界面",
+      "description": "清新现代的流体层次界面风格",
+      "icon": "web_asset",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "midCenturyModern": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/midCenturyModern.tsx",
+      "fileSize": 7972,
+      "name": "中世纪现代",
+      "description": "20世纪中叶的友好功能主义，有机曲线与轻快色彩",
+      "icon": "chair",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "minimalism": {
+      "modifiedTime": 1771328667,
+      "filePath": "src/templates/minimalism.tsx",
+      "fileSize": 6289,
+      "name": "极简主义",
+      "description": "极少元素大面积留白极简风格",
+      "icon": "minimize",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "modularRepairable": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/modularRepairable.tsx",
+      "fileSize": 9803,
+      "name": "模块化设计",
+      "description": "标准接口与可替换模块，可见的结构逻辑",
+      "icon": "extension",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "moguStyle": {
+      "modifiedTime": 1771372628,
+      "filePath": "src/templates/moguStyle.tsx",
+      "fileSize": 8839,
+      "name": "没骨画",
+      "description": "无外轮廓线、以色墨成形的没骨风格，边界柔和、色块呼吸",
+      "icon": "palette",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "monogramSignature": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/monogramSignature.tsx",
+      "fileSize": 12884,
+      "name": "字标签名系统",
+      "description": "字体结构作为品牌核心，经典优雅的奢华质感",
+      "icon": "text_fields",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "monospaceLed": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/monospaceLed.tsx",
+      "fileSize": 9827,
+      "name": "等宽字体",
+      "description": "极客、系统感、理性；适合开发者产品、AI 工具、数据产品",
+      "icon": "terminal",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "motifChiseled": {
+      "modifiedTime": 1771657826,
+      "filePath": "src/templates/motifChiseled.tsx",
+      "fileSize": 7967,
+      "name": "凿刻式工业界面",
+      "description": "1989年工业桌面风格 - 方正硬朗、3D凿刻控件、强调可用性",
+      "icon": "widgets",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "motionBranding": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/motionBranding.tsx",
+      "fileSize": 12432,
+      "name": "动效品牌",
+      "description": "动效作为品牌资产（转场、节奏、呼吸）；适合品牌体系与多端一致性",
+      "icon": "animation",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "mujiAnonymous": {
+      "modifiedTime": 1771655389,
+      "filePath": "src/templates/mujiAnonymous.tsx",
+      "fileSize": 7690,
+      "name": "无品牌极简",
+      "description": "克制中性的无品牌极简设计，风格降到最低",
+      "icon": "category",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "neoBrutalism": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/neoBrutalism.tsx",
+      "fileSize": 10396,
+      "name": "新粗野风格",
+      "description": "高饱和、粗描边、硬阴影的潮流设计",
+      "icon": "brush",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "neumorphism": {
+      "modifiedTime": 1771314216,
+      "filePath": "src/templates/neumorphism.tsx",
+      "fileSize": 7499,
+      "name": "新拟物",
+      "description": "同色系浮雕新拟物风格",
+      "icon": "album",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "newsCard": {
+      "modifiedTime": 1771314216,
+      "filePath": "src/templates/newsCard.tsx",
+      "fileSize": 10455,
+      "name": "新闻卡片",
+      "description": "精美的新闻摘要卡片样式",
+      "icon": "style",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "nextstep": {
+      "modifiedTime": 1771657812,
+      "filePath": "src/templates/nextstep.tsx",
+      "fileSize": 8107,
+      "name": "对象化工作台",
+      "description": "1989年对象化桌面风格 - 极简灰阶、面板窗口、列视图体系",
+      "icon": "view_column",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "onePageHero": {
+      "modifiedTime": 1771842603,
+      "filePath": "src/templates/onePageHero.tsx",
+      "fileSize": 6622,
+      "name": "强Hero营销",
+      "description": "头屏极强视觉 + 逐段卖点；适合 SaaS、AI、DTC 品牌官网",
+      "icon": "rocket_launch",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "os2Warp": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/os2Warp.tsx",
+      "fileSize": 7899,
+      "name": "对象化桌面",
+      "description": "1996年对象化桌面风格 - 工作区组织与启动中心",
+      "icon": "folder_open",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "outlineStroke": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/outlineStroke.tsx",
+      "fileSize": 9979,
+      "name": "描边线条风格",
+      "description": "线条主导、空心图形、极简配色",
+      "icon": "border_outer",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "painterlyComic": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/painterlyComic.tsx",
+      "fileSize": 9762,
+      "name": "厚涂漫画",
+      "description": "更像绘画体积材质强的厚涂漫画风格，镜头感重",
+      "icon": "palette",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "painterlyStyle": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/painterlyStyle.tsx",
+      "fileSize": 9215,
+      "name": "厚涂风格",
+      "description": "笔触塑形材质真实的厚涂风格，适合概念插画",
+      "icon": "brush",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "palmOs": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/palmOs.tsx",
+      "fileSize": 8012,
+      "name": "掌上效率界面",
+      "description": "1996年掌上效率界面风格 - 小屏高对比与图标化",
+      "icon": "smartphone",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "paperCut": {
+      "modifiedTime": 1771372667,
+      "filePath": "src/templates/paperCut.tsx",
+      "fileSize": 9749,
+      "name": "剪纸艺术",
+      "description": "剪影负形、正负形同重的剪纸风格，一刀成识别",
+      "icon": "content_cut",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "patternDriven": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/patternDriven.tsx",
+      "fileSize": 10289,
+      "name": "图案驱动",
+      "description": "重复纹理/图案作为系统；适合品牌识别、包装、电商活动",
+      "icon": "pattern",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "photoRealBg": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/photoRealBg.tsx",
+      "fileSize": 8705,
+      "name": "写实背景",
+      "description": "真实光照空气的写实背景风格，角色线条干净",
+      "icon": "photo_camera",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "pictogramLanguage": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/pictogramLanguage.tsx",
+      "fileSize": 10286,
+      "name": "图形符号语言",
+      "description": "统一笔画、圆角、比例的系统化符号学",
+      "icon": "signpost",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "pixelArt": {
+      "modifiedTime": 1771372774,
+      "filePath": "src/templates/pixelArt.tsx",
+      "fileSize": 10446,
+      "name": "像素风",
+      "description": "像素化游戏感块状图形",
+      "icon": "grid_on",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "pixelArtStyle": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/pixelArtStyle.tsx",
+      "fileSize": 9702,
+      "name": "像素艺术",
+      "description": "网格有限色板的像素风格，适合复古与游戏感",
+      "icon": "grid_on",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "pointillism": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/pointillism.tsx",
+      "fileSize": 9423,
+      "name": "点彩派",
+      "description": "颜色像素点的点彩风格，光学混色、颗粒节奏",
+      "icon": "grain",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "pomoStyle": {
+      "modifiedTime": 1771372619,
+      "filePath": "src/templates/pomoStyle.tsx",
+      "fileSize": 9225,
+      "name": "泼墨泼彩",
+      "description": "大水大墨、随机性强的泼墨风格，肌理丰富、气势扑面",
+      "icon": "format_paint",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "popArt": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/popArt.tsx",
+      "fileSize": 8978,
+      "name": "波普艺术",
+      "description": "大众符号平面化的波普风格，商业语言、网点、强轮廓",
+      "icon": "stars",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "render3D": {
+      "modifiedTime": 1768464398,
+      "filePath": "src/templates/3dProductRender.tsx",
+      "fileSize": 16048,
+      "name": "写实3D",
+      "description": "写实材质与灯光；适合硬件、消费电子、汽车概念页",
+      "icon": "view_in_ar",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "retroWin95": {
+      "modifiedTime": 1771655389,
+      "filePath": "src/templates/retroWin95.tsx",
+      "fileSize": 9135,
+      "name": "复古系统风格",
+      "description": "灰色窗口与斜面浮雕边框的经典复古界面",
+      "icon": "computer",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "rinpaSchool": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/rinpaSchool.tsx",
+      "fileSize": 11003,
+      "name": "琳派",
+      "description": "装饰屏风美学的琳派风格，大构成、金地留白、图案化自然母题",
+      "icon": "auto_awesome",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "risograph": {
+      "modifiedTime": 1771414558,
+      "filePath": "src/templates/risograph.tsx",
+      "fileSize": 7182,
+      "name": "孔版印刷",
+      "description": "套色错位、颗粒、复古印刷质感；适合艺术出版、文化活动",
+      "icon": "print",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "salesforceLightning": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/salesforceLightning.tsx",
+      "fileSize": 9394,
+      "name": "业务控制台",
+      "description": "CRM 场景的高密度业务中台风格",
+      "icon": "cloud",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "sapFiori": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/sapFiori.tsx",
+      "fileSize": 7126,
+      "name": "企业流程面板",
+      "description": "企业应用流程化界面风格",
+      "icon": "business",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "sciFiHud": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/sciFiHud.tsx",
+      "fileSize": 11470,
+      "name": "科幻HUD风格",
+      "description": "线框、发光描边、扫描线的科幻界面",
+      "icon": "monitor",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "scrollStory": {
+      "modifiedTime": 1770035079,
+      "filePath": "src/templates/scrollStory.tsx",
+      "fileSize": 10904,
+      "name": "滚动叙事",
+      "description": "滚动触发分镜、动画与数据讲述；适合长页发布、报告、媒体专题",
+      "icon": "auto_stories",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "serifClassic": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/serifClassic.tsx",
+      "fileSize": 9446,
+      "name": "衬线古典",
+      "description": "衬线字体 + 克制排版，偏",
+      "icon": "format_size",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "serviceBlueprint": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/serviceBlueprint.tsx",
+      "fileSize": 12851,
+      "name": "服务蓝图",
+      "description": "前台后台流程可视化，泳道图与交互点标记",
+      "icon": "account_tree",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "shopifyPolaris": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/shopifyPolaris.tsx",
+      "fileSize": 7271,
+      "name": "电商后台极简",
+      "description": "电商商家后台界面风格",
+      "icon": "shopping_cart",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "silkscreenStyle": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/silkscreenStyle.tsx",
+      "fileSize": 9575,
+      "name": "丝网印刷",
+      "description": "色块干净层层套色的丝网风格，大色块构成优先",
+      "icon": "layers",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "skeuomorphicMotion": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/skeuomorphicMotion.tsx",
+      "fileSize": 12870,
+      "name": "拟物动效",
+      "description": "强物理感弹性、摩擦、惯性；适合",
+      "icon": "widgets",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "skeuomorphism": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/skeuomorphism.tsx",
+      "fileSize": 8107,
+      "name": "拟物化",
+      "description": "真实材质拟物化设计风格",
+      "icon": "widgets",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "spatialXrUi": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/spatialXrUi.tsx",
+      "fileSize": 14424,
+      "name": "空间计算界面",
+      "description": "距离深度与手势提示的空间布局",
+      "icon": "view_in_ar",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "springFestivalStyle": {
+      "modifiedTime": 1771420491,
+      "filePath": "src/templates/springFestival.tsx",
+      "fileSize": 15930,
+      "name": "春节 (Spring Festival)",
+      "description": "红金配色的春节风格，点缀抽象灯笼与中国结",
+      "icon": "festival",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "stickerBomb": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/stickerBomb.tsx",
+      "fileSize": 8015,
+      "name": "贴纸轰炸",
+      "description": "大量贴纸元素堆叠；适合街头潮流、社群活动、UGC视觉",
+      "icon": "sticky_note_2",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "stopMotion": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/stopMotion.tsx",
+      "fileSize": 10645,
+      "name": "定格",
+      "description": "逐帧拍摄实物材料的定格动画风格，材质纹理与帧感",
+      "icon": "animation",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "sumiStyle": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/sumiStyle.tsx",
+      "fileSize": 9276,
+      "name": "墨绘",
+      "description": "极简笔势、黑白对比的墨绘风格，一笔决定形、留白即是空气",
+      "icon": "gesture",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "surrealism": {
+      "modifiedTime": 1770110256,
+      "filePath": "src/templates/surrealism.tsx",
+      "fileSize": 9642,
+      "name": "超现实主义",
+      "description": "梦逻辑与不可能组合的超现实风格，像真的一样不合理",
+      "icon": "cloud",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "swissPunk": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/swissPunk.tsx",
+      "fileSize": 10412,
+      "name": "瑞士朋克风格",
+      "description": "瑞士网格骨架、故意错位、高对比撞色",
+      "icon": "grid_on",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "swissStyle": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/swissStyle.tsx",
+      "fileSize": 7591,
+      "name": "瑞士风格",
+      "description": "网格系统强对齐瑞士国际主义风格",
+      "icon": "grid_on",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "synthwave": {
+      "modifiedTime": 1771372808,
+      "filePath": "src/templates/synthwave.tsx",
+      "fileSize": 11811,
+      "name": "合成波",
+      "description": "80s霓虹网格地平线夜景",
+      "icon": "nightlight",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "system7Mac": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/system7Mac.tsx",
+      "fileSize": 8424,
+      "name": "经典灰阶系统",
+      "description": "1991年经典灰阶系统风格 - 窗口层级与全局菜单栏",
+      "icon": "computer",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "tailwindCss": {
+      "modifiedTime": 1771655347,
+      "filePath": "src/templates/tailwindCss.tsx",
+      "fileSize": 8212,
+      "name": "原子化样式",
+      "description": "原子化工具类界面风格",
+      "icon": "dashboard",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "tangibleUi": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/tangibleUi.tsx",
+      "fileSize": 13304,
+      "name": "可触式交互",
+      "description": "物理控件隐喻，旋钮滑块与触感分级",
+      "icon": "dialpad",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "terminalCli": {
+      "modifiedTime": 1771372792,
+      "filePath": "src/templates/terminalCli.tsx",
+      "fileSize": 9473,
+      "name": "终端风格",
+      "description": "等宽字体绿色荧光极客气质",
+      "icon": "terminal",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "transitMapAbstract": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/transitMapAbstract.tsx",
+      "fileSize": 13132,
+      "name": "交通图抽象法",
+      "description": "拓扑结构优先，45/90度角，统一线宽节点",
+      "icon": "subway",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "ukiyoPrint": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/ukiyoPrint.tsx",
+      "fileSize": 9903,
+      "name": "浮世绘",
+      "description": "明确轮廓线、平涂色块、大胆裁切的浮世绘风格，平面设计语言",
+      "icon": "brush",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "vaporwave": {
+      "modifiedTime": 1771372765,
+      "filePath": "src/templates/vaporwave.tsx",
+      "fileSize": 10189,
+      "name": "蒸汽波",
+      "description": "霓虹紫粉复古3D超现实",
+      "icon": "palette",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "variableTypography": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/variableTypography.tsx",
+      "fileSize": 9897,
+      "name": "可变字体",
+      "description": "用字重/宽度/倾斜做动态层级；适合互动叙事、品牌首页",
+      "icon": "text_fields",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "vector3D": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/vector3d.tsx",
+      "fileSize": 11559,
+      "name": "矢量3D",
+      "icon": "vector_square",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "vistaAero": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/vistaAero.tsx",
+      "fileSize": 9413,
+      "name": "玻璃光晕桌面",
+      "description": "2007年玻璃光晕桌面风格 - 半透明、光晕、模糊",
+      "icon": "blur_on",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "wabiSabi": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/wabiSabi.tsx",
+      "fileSize": 7992,
+      "name": "侘寂美学",
+      "description": "不完美的美，时间痕迹与自然留白的日式美学",
+      "icon": "spa",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "warmCard": {
+      "modifiedTime": 1771314216,
+      "filePath": "src/templates/warmCard.tsx",
+      "fileSize": 9772,
+      "name": "温暖卡片",
+      "description": "柔和暖色调、圆角卡片与内部内容块设计",
+      "icon": "dashboard",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "watercolorStyle": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/watercolorStyle.tsx",
+      "fileSize": 10362,
+      "name": "水彩风格",
+      "description": "透明叠色边缘水痕的水彩风格，适合温柔氛围",
+      "icon": "water_drop",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "wayfindingSignage": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/wayfindingSignage.tsx",
+      "fileSize": 13206,
+      "name": "导视设计系统",
+      "description": "决策路径导向，分区颜色与方向指示",
+      "icon": "signpost",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "web1Geocities": {
+      "modifiedTime": 1771372818,
+      "filePath": "src/templates/web1Geocities.tsx",
+      "fileSize": 11172,
+      "name": "Web 1.0早期风格",
+      "description": "闪烁文字、花哨背景的GeoCities复古风",
+      "icon": "language",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "webosCards": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/webosCards.tsx",
+      "fileSize": 8314,
+      "name": "卡片式多任务",
+      "description": "2009年卡片式多任务风格 - 手势切换与堆叠窗口",
+      "icon": "style",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "whitespaceLuxury": {
+      "modifiedTime": 1771328667,
+      "filePath": "src/templates/whitespaceLuxury.tsx",
+      "fileSize": 6332,
+      "name": "留白奢华",
+      "description": "大留白 + 精致排版；适合奢品、摄影、设计工作室",
+      "icon": "spa",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "windows11": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/windows11.tsx",
+      "fileSize": 9261,
+      "name": "现代居中桌面",
+      "description": "2021年现代桌面风格 - 圆角、通透材质、居中任务栏",
+      "icon": "computer",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "windows8Start": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/windows8Start.tsx",
+      "fileSize": 8151,
+      "name": "磁贴信息屏",
+      "description": "2012年磁贴信息屏风格 - 模块化、动态信息",
+      "icon": "view_module",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "windows95": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/windows95.tsx",
+      "fileSize": 9965,
+      "name": "复古桌面95",
+      "description": "1995年复古桌面风格，灰色窗口、斜面边框与青绿色背景。",
+      "icon": "apps",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "windowsXpLuna": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/windowsXpLuna.tsx",
+      "fileSize": 10196,
+      "name": "彩塑界面经典",
+      "description": "2001年彩塑质感界面风格 - 圆角、渐变、亲和布局",
+      "icon": "computer",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "wireframe": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/wireframe.tsx",
+      "fileSize": 9604,
+      "name": "线框结构风",
+      "description": "骨架展示虚线边框原型感",
+      "icon": "view_quilt",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "woodblockPrint": {
+      "modifiedTime": 1771372657,
+      "filePath": "src/templates/woodblockPrint.tsx",
+      "fileSize": 9651,
+      "name": "木版年画",
+      "description": "平涂强符号的木版年画风格，轮廓鲜明、吉祥图案",
+      "icon": "style",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "woodcutStyle": {
+      "modifiedTime": 1771393645,
+      "filePath": "src/templates/woodcutStyle.tsx",
+      "fileSize": 8833,
+      "name": "木刻版画",
+      "description": "刀痕强黑白对比的木刻风格，剪影压形、粗粝边缘",
+      "icon": "content_cut",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "xieyiStyle": {
+      "modifiedTime": 1771372610,
+      "filePath": "src/templates/xieyiStyle.tsx",
+      "fileSize": 8638,
+      "name": "写意画",
+      "description": "笔墨概括、形不求全的写意风格，重气韵、求神似",
+      "icon": "water_drop",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "y2kStyle": {
+      "modifiedTime": 1771372755,
+      "filePath": "src/templates/y2kStyle.tsx",
+      "fileSize": 9719,
+      "name": "Y2K风格",
+      "description": "金属荧光液态高光未来怀旧",
+      "icon": "auto_awesome",
+      "downloadable": true,
+      "ssrReady": true
+    },
+    "yosemiteFlat": {
+      "modifiedTime": 1771655379,
+      "filePath": "src/templates/yosemiteFlat.tsx",
+      "fileSize": 9090,
+      "name": "轻透扁平桌面",
+      "description": "2014年轻透扁平桌面风格 - 半透明侧栏与统一图标",
+      "icon": "laptop",
+      "downloadable": true,
+      "ssrReady": true
+    }
+  }
+}

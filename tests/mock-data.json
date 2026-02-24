@@ -1,0 +1,222 @@
+[
+  {
+    "mainTitle": "OpenAI 发布 Sora",
+    "cards": [
+      {
+        "title": "Sora 发布",
+        "desc": "OpenAI 发布 <code>Sora</code> 文生视频模型，能生成长达<strong>1</strong>分钟的高清视频。该模型具备复杂场景理解和多角色生成能力，但目前仅对部分研究人员开放。",
+        "icon": "movie"
+      }
+    ]
+  },
+  {
+    "mainTitle": "全球半导体市场 2024 预测",
+    "cards": [
+      {
+        "title": "市场回暖",
+        "desc": "预计 2024 年全球半导体销售额将达到 <strong>5880 亿美元</strong>，同比增长 <strong>13%</strong>，主要由 AI 芯片需求驱动。",
+        "icon": "trending_up"
+      },
+      {
+        "title": "存储芯片",
+        "desc": "存储芯片价格有望在 2024 年持续反弹，涨幅可能超过 <strong>20%</strong>，对 <code>DRAM</code> 和 <code>NAND</code> 市场利好。",
+        "icon": "memory"
+      }
+    ]
+  },
+  {
+    "mainTitle": "苹果 Vision Pro 中国上市",
+    "cards": [
+      {
+        "title": "正式开售",
+        "desc": "苹果 <code>Vision Pro</code> 已在中国市场正式开售，起售价为 <strong>29999 元</strong>，引发消费者和科技爱好者的广泛关注。",
+        "icon": "shopping_cart"
+      },
+      {
+        "title": "生态建设",
+        "desc": "目前已有超过 <strong>2000 个</strong> 原生应用适配 <code>visionOS</code>，涵盖生产力、娱乐和空间计算等多个领域。",
+        "icon": "apps"
+      },
+      {
+        "title": "体验中心",
+        "desc": "苹果在各大城市开设了 <code>Vision Pro</code> 体验区，用户可预约进行 <strong>30 分钟</strong> 的深度沉浸式体验。",
+        "icon": "visibility"
+      }
+    ]
+  },
+  {
+    "mainTitle": "2024 北京车展亮点",
+    "cards": [
+      {
+        "title": "小米 SU7",
+        "desc": "小米 <code>SU7</code> 成为全场焦点，雷军宣布交付量已突破 <strong>10000 辆</strong>，智驾系统将在 5 月开启测试。",
+        "icon": "directions_car"
+      },
+      {
+        "title": "仰望 U8",
+        "desc": "比亚迪 <code>仰望 U8</code> 展示了原地掉头和应急浮水功能，售价 <strong>109.8 万元</strong>，代表了国产硬派越野的巅峰。",
+        "icon": "terrain"
+      },
+      {
+        "title": "固态电池",
+        "desc": "多家厂商展示了 <strong>全固态电池</strong> 原型，续航里程有望突破 <strong>1000 公里</strong>，并支持超快充技术。",
+        "icon": "battery_charging_full"
+      },
+      {
+        "title": "鸿蒙智行",
+        "desc": "华为 <code>鸿蒙智行</code> 家族全系亮相，包括问界 M9 和智界 S7，展示了强大的车载 <code>HarmonyOS</code> 生态。",
+        "icon": "hub"
+      }
+    ]
+  },
+  {
+    "mainTitle": "LLM 技术最新进展",
+    "cards": [
+      {
+        "title": "GPT-4o",
+        "desc": "OpenAI 发布 <code>GPT-4o</code>，实现了原生多模态实时交互，延迟降低至 <strong>232 毫秒</strong>，接近人类反应速度。",
+        "icon": "bolt"
+      },
+      {
+        "title": "Claude 3.5",
+        "desc": "Anthropic 推出 <code>Claude 3.5 Sonnet</code>，在编程和逻辑推理方面超越了 GPT-4 Turbo，且速度更快。",
+        "icon": "psychology"
+      },
+      {
+        "title": "Llama 3",
+        "desc": "Meta 开源 <code>Llama 3</code> 系列模型，包含 8B 和 70B 版本，极大地推动了开源社区在边缘计算的发展。",
+        "icon": "public"
+      },
+      {
+        "title": "长文本处理",
+        "desc": "<code>Gemini 1.5 Pro</code> 支持多达 <strong>200 万 token</strong> 的上下文窗口，可一次性处理整本小说或超长代码库。",
+        "icon": "description"
+      },
+      {
+        "title": "推理优化",
+        "desc": "<code>Flash Attention-3</code> 技术发布，显著提升了 LLM 在 <code>NVIDIA H100</code> 显卡上的推理吞吐量和内存利用率。",
+        "icon": "speed"
+      }
+    ]
+  },
+  {
+    "mainTitle": "低空经济行业动态",
+    "cards": [
+      {
+        "title": "亿航 EH216",
+        "desc": "亿航 <code>EH216-S</code> 获得全球首个无人驾驶 <code>eVTOL</code> 适航证，标志着城市空中交通进入商业化阶段。",
+        "icon": "flight"
+      },
+      {
+        "title": "小鹏汇天",
+        "desc": "小鹏汇天分体式飞行汽车 <code>陆地航母</code> 计划在 2024 年底开启预订，售价预计在 <strong>100-200 万元</strong> 之间。",
+        "icon": "flight_takeoff"
+      },
+      {
+        "title": "政策支持",
+        "desc": "多地政府出台 <strong>低空经济</strong> 专项规划，建立低空空域管理体系，旨在打造万亿级规模的新兴市场。",
+        "icon": "gavel"
+      },
+      {
+        "title": "基础设施",
+        "desc": "全国首批 <strong>垂直起降点</strong> 在深圳和广州投入运行，支持智能调度和自动充电功能，提升运营效率。",
+        "icon": "apartment"
+      },
+      {
+        "title": "物流配送",
+        "desc": "顺丰和美团在部分城市试点 <strong>无人机物流</strong>，配送时间缩短 <strong>50%</strong> 以上，有效解决最后一公里难题。",
+        "icon": "local_shipping"
+      },
+      {
+        "title": "氢能动力",
+        "desc": "研发机构成功试飞 <strong>氢燃料电池</strong> 驱动的 eVTOL，能量密度远超锂电，续航时间可达 <strong>4 小时</strong>。",
+        "icon": "eco"
+      }
+    ]
+  },
+  {
+    "mainTitle": "科技巨头 Q1 财报",
+    "cards": [
+      {
+        "title": "NVIDIA",
+        "desc": "英伟达 Q1 营收同比增长 <strong>262%</strong>，净利润大增 <strong>6 倍</strong>，主要受益于 H100 GPU 在 AI 领域的统治地位。",
+        "icon": "trending_up"
+      },
+      {
+        "title": "Microsoft",
+        "desc": "微软云业务 <code>Azure</code> 增长 <strong>31%</strong>，AI 对收入的贡献显著增加，市值稳居全球第一。",
+        "icon": "cloud"
+      },
+      {
+        "title": "Google",
+        "desc": "谷歌母公司 <code>Alphabet</code> 宣布首次分红并回购 <strong>700 亿美元</strong> 股票，搜索和云业务表现强劲。",
+        "icon": "search"
+      },
+      {
+        "title": "Meta",
+        "desc": "Meta Q1 营收超预期，虽然加大了在 <code>Meta AI</code> 和元宇宙的投入，但广告业务依然保持高增长。",
+        "icon": "ads_click"
+      },
+      {
+        "title": "Amazon",
+        "desc": "亚马逊 <code>AWS</code> 营收加速增长，电商业务效率提升，整体利润创下近年新高，展现强大韧性。",
+        "icon": "shopping_cart"
+      },
+      {
+        "title": "Apple",
+        "desc": "苹果 Q1 营收微降，但 <code>iPad</code> 业务因新品发布预期表现亮眼，服务业务收入再创新高。",
+        "icon": "phone_iphone"
+      },
+      {
+        "title": "Tesla",
+        "desc": "特斯拉面临需求挑战，但马斯克宣布将加快 <strong>低价车型</strong> 的生产计划，并重点发展 <code>FSD</code> 技术。",
+        "icon": "electric_car"
+      }
+    ]
+  },
+  {
+    "mainTitle": "2024 AI 领域突破",
+    "cards": [
+      {
+        "title": "多模态原生",
+        "desc": "AI 模型进入 <strong>原生多模态</strong> 时代，不再依赖插件即可同时理解视觉、听觉和文本信息。",
+        "icon": "auto_awesome"
+      },
+      {
+        "title": "智能体 Agent",
+        "desc": "<code>AI Agent</code> 技术成熟，模型能够自主规划任务、调用工具并执行复杂的工作流，如自动化编程。",
+        "icon": "smart_toy"
+      },
+      {
+        "title": "具身智能",
+        "desc": "大模型与 <strong>机器人</strong> 结合，使人形机器人具备了常识理解和精准的操作能力，如 <code>Figure 01</code>。",
+        "icon": "accessibility"
+      },
+      {
+        "title": "端侧 AI",
+        "desc": "高效的小模型让 <strong>端侧 AI</strong> 成为可能，手机和 PC 无需联网即可流畅运行数十亿参数的 LLM。",
+        "icon": "smartphone"
+      },
+      {
+        "title": "生物科技",
+        "desc": "AI 在 <strong>蛋白质折叠</strong> 和新药研发中取得突破，<code>AlphaFold 3</code> 能够预测所有生命分子的结构。",
+        "icon": "biotech"
+      },
+      {
+        "title": "代码智能",
+        "desc": "<code>Devin</code> 等全栈 AI 程序员出现，能够独立修复 bug 和部署项目，重塑了软件开发模式。",
+        "icon": "code"
+      },
+      {
+        "title": "可解释性",
+        "desc": "研究人员在 <strong>黑盒模型</strong> 的可解释性上取得进展，通过探测技术识别了模型内部的神经元功能。",
+        "icon": "troubleshoot"
+      },
+      {
+        "title": "法律合规",
+        "desc": "全球首部 <code>AI 法案</code> 在欧盟正式生效，为生成式人工智能的开发和应用划定了安全红线。",
+        "icon": "policy"
+      }
+    ]
+  }
+]

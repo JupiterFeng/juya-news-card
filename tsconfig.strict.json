@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "allowJs": false,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "useUnknownInCatchVariables": true
+  },
+  "include": [
+    "vite-env.d.ts",
+    "src/utils/request-security.ts",
+    "src/utils/markdown-content.ts",
+    "src/utils/desc-format.ts",
+    "src/utils/export-render-api-image.ts",
+    "src/hooks/use-app-keyboard-shortcuts.ts",
+    "src/hooks/use-cdn-icon-list.ts",
+    "src/utils/non-critical-assets.ts"
+  ]
+}

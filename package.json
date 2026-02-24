@@ -1,0 +1,58 @@
+{
+  "name": "juya-news-card",
+  "description": "AI-powered news card generation and rendering tool.",
+  "license": "MIT",
+  "version": "0.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "typecheck:strict": "tsc -p tsconfig.strict.json --noEmit",
+    "test": "node --import tsx --test tests/**/*.test.ts",
+    "check": "npm run typecheck && npm run build",
+    "preview": "vite preview",
+    "docker:build": "docker build -t juya-news-card-render-api .",
+    "docker:run": "docker run --rm -p 8080:8080 --env-file .env.docker juya-news-card-render-api",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down",
+    "dev:api": "node --import tsx server/render-api.ts",
+    "generate": "tsx scripts/generate.ts",
+    "batch-generate": "tsx scripts/batch-generate.ts",
+    "test-render": "tsx scripts/offline-render.ts",
+    "render-api": "node --import tsx server/render-api.ts",
+    "generate-meta": "tsx scripts/generate-template-meta.ts",
+    "audit-themes": "node --import tsx scripts/audit-theme-contract.ts",
+    "audit-themes:strict": "node --import tsx scripts/audit-theme-contract.ts --strict-local",
+    "audit-themes:runtime": "node --import tsx scripts/audit-runtime-layout-risk.ts",
+    "audit-themes:runtime:critical": "node --import tsx scripts/audit-runtime-layout-risk.ts --critical-only",
+    "audit-themes:runtime:strict": "node --import tsx scripts/audit-runtime-layout-risk.ts --fail-on-findings",
+    "audit-themes:visual": "node --import tsx scripts/audit-visual-consistency.ts",
+    "review-pack": "node --import tsx scripts/generate-review-pack.ts"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.8",
+    "@mui/material": "^7.3.8",
+    "@types/minimist": "^1.2.5",
+    "@zumer/snapdom": "^2.0.2",
+    "html2canvas": "^1.4.1",
+    "minimist": "^1.2.8",
+    "openai": "^4.83.0",
+    "playwright": "^1.57.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "dotenv": "^17.2.3",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
