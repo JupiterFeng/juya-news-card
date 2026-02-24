@@ -2,6 +2,8 @@
 
 一个基于 React + TypeScript 的新闻卡片生成与渲染工具，支持模板预览、服务端 LLM 生成、PNG 导出（前端或后端渲染）。
 
+![软件界面](assets/screenshot.png)
+
 ## 特性
 - 输入新闻文本，服务端调用 LLM 生成结构化卡片
 - 174 个主题模板统一渲染（`templates/`）
