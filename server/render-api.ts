@@ -32,6 +32,18 @@ type LlmResolvedOptions = {
   systemPrompt: string;
 };
 
+type PublicLlmRuntimeConfig = {
+  allowClientLlmSettings: boolean;
+  model: string;
+  temperature: number;
+  topP: number;
+  maxTokens: number;
+  timeoutMs: number;
+  maxRetries: number;
+  baseURL: string;
+  allowedModels: string[];
+};
+
 type CorsPolicy = {
   allowAny: boolean;
   allowList: Set<string>;
@@ -494,6 +506,20 @@ function resolveLlmOptions(body: Json): { inputText: string; options: LlmResolve
       maxRetries,
       systemPrompt,
     },
+  };
+}
+
+function buildPublicLlmRuntimeConfig(): PublicLlmRuntimeConfig {
+  return {
+    allowClientLlmSettings: ALLOW_CLIENT_LLM_SETTINGS,
+    model: LLM_MODEL_DEFAULT,
+    temperature: LLM_TEMPERATURE_DEFAULT,
+    topP: LLM_TOP_P_DEFAULT,
+    maxTokens: LLM_MAX_TOKENS_DEFAULT,
+    timeoutMs: LLM_TIMEOUT_MS_DEFAULT,
+    maxRetries: LLM_MAX_RETRIES_DEFAULT,
+    baseURL: LLM_API_BASE_URL,
+    allowedModels: [...LLM_ALLOWED_MODELS],
   };
 }
 
@@ -1194,6 +1220,16 @@ async function main(): Promise<void> {
           now: nowIso(),
           queues: { '1x': pool1x.queued, '2x': pool2x.queued },
           pending: { '1x': pool1x.pending, '2x': pool2x.pending },
+          llmConfigured: Boolean(LLM_API_KEY),
+        });
+        return;
+      }
+
+      if (req.method === 'GET' && (pathname === '/config' || pathname === '/api/config')) {
+        sendJson(req, res, 200, {
+          ok: true,
+          now: nowIso(),
+          llm: buildPublicLlmRuntimeConfig(),
           llmConfigured: Boolean(LLM_API_KEY),
         });
         return;

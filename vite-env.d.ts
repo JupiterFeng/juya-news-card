@@ -6,7 +6,6 @@ interface ImportMetaEnv {
   readonly VITE_ALLOW_CROSS_ORIGIN_BEARER?: string;
   readonly VITE_API_PROXY_TARGET?: string;
   readonly VITE_API_BEARER_TOKEN?: string;
-  readonly VITE_API_MODEL?: string;
   readonly VITE_TAILWIND_SCRIPT_URL?: string;
   readonly VITE_MATERIAL_ICONS_URL?: string;
   readonly VITE_MATERIAL_SYMBOLS_URL?: string;

@@ -148,11 +148,12 @@ CORS_ALLOW_ORIGIN=https://your-frontend-domain.example
 - `VITE_*` 给浏览器用，不要放密钥。
 - UI 里的 `App Backend API Base URL`（旧名 `Generate API Base URL`）对应 `VITE_API_BASE_URL`，表示本项目后端地址（用于 `/api/generate`），不是上游 LLM 的 `LLM_API_BASE_URL`。
 - `LLM_*` 给服务端调用上游模型用。
-- UI 的 Global Settings 会写入 `localStorage`；点击 `Reset` 可回到环境变量默认值。
+- UI 的 LLM 参数为后端只读展示（来自 `/api/config`）；`localStorage` 仅缓存布局/导出/图标映射和 App Backend API Base URL。
 - 其余高级参数（并发、限流、超时、Chromium）都已给默认值，按需再去 `.env.example` 取消注释即可。
 
 ## API
 - `GET /healthz`：健康检查
+- `GET /config` 或 `GET /api/config`：返回后端当前生效配置（含 LLM 只读信息，不含密钥）
 - `GET /themes`：SSR 可用主题列表
 - `POST /api/generate`：LLM 生成结构化卡片
 - `POST /render` 或 `POST /api/render`：渲染 PNG
@@ -181,7 +182,7 @@ npx playwright install chromium-headless-shell
 
 ## 项目结构
 - `src/`：前端应用、模板系统、客户端服务（含默认 LLM Prompt）
-- `server/`：后端 API（`/api/generate` + `/render` + `/healthz` + `/themes`）
+- `server/`：后端 API（`/api/generate` + `/render` + `/healthz` + `/config` + `/themes`）
 - `scripts/`：CLI 与批处理脚本（生成、离线渲染、全模板截图、审计）
 - `.agents/skills/`：Agent skill 定义（当前含 `juya-news-card-operator`）
 - `claude-style-prompt.md`：独立 Prompt（项目外），供任意 AI 生成 `claudeStyle` HTML；不被运行时自动读取

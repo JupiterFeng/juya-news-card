@@ -23,6 +23,10 @@ import {
   Image as ImageIcon,
 } from '@mui/icons-material';
 import { generateCardContent } from './services/openaiService';
+import {
+  fetchBackendLlmRuntimeConfig,
+  type BackendLlmRuntimeConfig,
+} from './services/backend-config-service';
 import { GeneratedContent } from './types';
 import Canvas from './components/Canvas';
 import GlobalSettingsDrawer from './components/GlobalSettingsDrawer';
@@ -36,7 +40,7 @@ import {
 } from './templates/client-registry';
 import { md3Colors } from './theme/md3-theme';
 import { contentToMarkdown, parseMarkdownToContent } from './utils/markdown-content';
-import type { AppGlobalSettings, LlmGlobalSettings } from './utils/global-settings';
+import type { AppGlobalSettings } from './utils/global-settings';
 import {
   createDefaultGlobalSettings,
   loadGlobalSettings,
@@ -72,6 +76,9 @@ const App: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [showSettingsPanel, setShowSettingsPanel] = useState(false);
   const [globalSettings, setGlobalSettings] = useState<AppGlobalSettings>(() => loadGlobalSettings());
+  const [backendLlmConfig, setBackendLlmConfig] = useState<BackendLlmRuntimeConfig | null>(null);
+  const [backendLlmConfigLoading, setBackendLlmConfigLoading] = useState(false);
+  const [backendLlmConfigError, setBackendLlmConfigError] = useState<string | null>(null);
   const cdnIconList = useCdnIconList(
     Boolean(globalSettings.iconMapping?.enabled),
     globalSettings.iconMapping?.cdnUrl || ''
@@ -92,13 +99,13 @@ const App: React.FC = () => {
     }));
   }, [updateGlobalSettings]);
 
-  const updateLlmSetting = useCallback(<K extends keyof LlmGlobalSettings>(key: K, value: LlmGlobalSettings[K]) => {
+  const updateApiBaseUrl = useCallback((value: string) => {
     updateGlobalSettings(prev => ({
       ...prev,
       llm: {
         ...prev.llm,
-        [key]: value,
-      } as LlmGlobalSettings,
+        baseURL: value,
+      },
     }));
   }, [updateGlobalSettings]);
 
@@ -137,6 +144,33 @@ const App: React.FC = () => {
   useEffect(() => {
     setGeneratedText(data ? contentToMarkdown(data) : '');
   }, [data]);
+
+  useEffect(() => {
+    let canceled = false;
+    setBackendLlmConfigLoading(true);
+    setBackendLlmConfigError(null);
+
+    fetchBackendLlmRuntimeConfig(globalSettings.llm.baseURL)
+      .then(config => {
+        if (canceled) return;
+        setBackendLlmConfig(config);
+      })
+      .catch(error => {
+        if (canceled) return;
+        const message = error instanceof Error ? error.message : String(error);
+        setBackendLlmConfig(null);
+        setBackendLlmConfigError(`Failed to load backend config: ${message}`);
+      })
+      .finally(() => {
+        if (canceled) return;
+        setBackendLlmConfigLoading(false);
+      });
+
+    return () => {
+      canceled = true;
+    };
+  }, [globalSettings.llm.baseURL]);
+
   const currentTemplateSummary = templateSummaries[templateId];
   const templateDisplayName = currentTemplate?.name || currentTemplateSummary?.name || templateId;
   const canDownloadCurrentTemplate = Boolean(currentTemplate?.downloadable);
@@ -190,20 +224,16 @@ const App: React.FC = () => {
     if (!inputText.trim()) return;
     setLoading(true);
     try {
-      const llmSettings = { ...globalSettings.llm };
-      if (globalSettings.iconMapping?.enabled) {
-        llmSettings.systemPrompt += '\\n\\n对于每张卡片的“图标”字段，请提供 3 个最贴切的 Google Material 图标英文候选词，用逗号分隔（如 icon1, icon2, icon3）。';
-      }
-      const result = await generateCardContent(inputText, llmSettings);
+      const result = await generateCardContent(inputText, { baseURL: globalSettings.llm.baseURL });
       setData(resolveIcons(result));
       setSelectedMockIndex(null);
     } catch (error) {
       console.error(error);
-      alert('Error generating content. Please check your global LLM settings and try again.');
+      alert('Error generating content. Please check backend API settings and try again.');
     } finally {
       setLoading(false);
     }
-  }, [globalSettings.iconMapping?.enabled, globalSettings.llm, inputText, resolveIcons]);
+  }, [globalSettings.llm.baseURL, inputText, resolveIcons]);
 
   const triggerGenerate = useCallback(() => {
     void handleGenerate();
@@ -737,10 +767,13 @@ const App: React.FC = () => {
         open={showSettingsPanel}
         settings={globalSettings}
         cdnIconCount={cdnIconList.length}
+        backendLlmConfig={backendLlmConfig}
+        backendLlmConfigLoading={backendLlmConfigLoading}
+        backendLlmConfigError={backendLlmConfigError}
         onClose={() => setShowSettingsPanel(false)}
         onReset={handleResetGlobalSettings}
+        onUpdateApiBaseUrl={updateApiBaseUrl}
         onUpdateSettings={updateGlobalSettings}
-        onUpdateLlmSetting={updateLlmSetting}
         onUpdateIconMappingSetting={updateIconMappingSetting}
       />
     </Box>

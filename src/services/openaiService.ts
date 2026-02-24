@@ -7,12 +7,7 @@ import {
   resolveEndpoint,
 } from '../utils/request-security';
 
-const DEFAULT_MODEL = 'gpt-4o-mini';
 const DEFAULT_TIMEOUT_MS = 60000;
-
-function getFiniteNumber(value: unknown, fallback: number): number {
-  return typeof value === 'number' && Number.isFinite(value) ? value : fallback;
-}
 
 function getApiBearerToken(): string {
   return import.meta.env.VITE_API_BEARER_TOKEN?.trim() || '';
@@ -63,13 +58,7 @@ export const generateCardContent = async (
     throw new Error('Input text is empty');
   }
 
-  const model = llmSettings?.model?.trim() || import.meta.env.VITE_API_MODEL || DEFAULT_MODEL;
-  const temperature = Math.min(2, Math.max(0, getFiniteNumber(llmSettings?.temperature, 0.7)));
-  const topP = Math.min(1, Math.max(0, getFiniteNumber(llmSettings?.topP, 1)));
-  const maxTokens = Math.max(0, Math.round(getFiniteNumber(llmSettings?.maxTokens, 0)));
-  const timeoutMs = normalizeTimeoutMs(llmSettings?.timeoutMs);
-  const maxRetries = Math.max(0, Math.round(getFiniteNumber(llmSettings?.maxRetries, 0)));
-  const systemPrompt = llmSettings?.systemPrompt?.trim() || undefined;
+  const timeoutMs = normalizeTimeoutMs(DEFAULT_TIMEOUT_MS);
 
   const configuredBaseUrl = llmSettings?.baseURL?.trim() || import.meta.env.VITE_API_BASE_URL?.trim();
   const { endpoint, sameOrigin } = resolveEndpoint({
@@ -96,15 +85,6 @@ export const generateCardContent = async (
       headers,
       body: JSON.stringify({
         inputText: text,
-        llm: {
-          model,
-          temperature,
-          topP,
-          ...(maxTokens > 0 ? { maxTokens } : {}),
-          timeoutMs,
-          maxRetries,
-          ...(systemPrompt ? { systemPrompt } : {}),
-        },
       }),
       signal: controller.signal,
     });

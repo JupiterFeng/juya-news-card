@@ -1,14 +1,7 @@
-import { DEFAULT_SYSTEM_PROMPT } from '../services/llm-prompt';
 import { BOTTOM_RESERVED_PX } from './layout-calculator';
 
 const STORAGE_KEY = 'p2v-global-settings-v2';
 const LEGACY_STORAGE_KEY = 'p2v-global-settings-v1';
-const DEFAULT_MODEL = 'gpt-4o-mini';
-const DEFAULT_TIMEOUT_MS = 60000;
-const DEFAULT_MAX_RETRIES = 0;
-const DEFAULT_TEMPERATURE = 0.7;
-const DEFAULT_TOP_P = 1;
-const DEFAULT_MAX_TOKENS = 0;
 
 export type ExportFormat = 'png' | 'svg';
 export type PngRenderer = 'browser' | 'render-api';
@@ -25,13 +18,6 @@ export const PNG_RENDERER_OPTIONS: { value: PngRenderer; label: string; descript
 
 export interface LlmGlobalSettings {
   baseURL: string;
-  model: string;
-  temperature: number;
-  topP: number;
-  maxTokens: number;
-  timeoutMs: number;
-  maxRetries: number;
-  systemPrompt: string;
 }
 
 export interface IconMappingSettings {
@@ -95,20 +81,12 @@ function resolveDefaultPngRenderer(): PngRenderer {
 }
 
 export function createDefaultGlobalSettings(): AppGlobalSettings {
-  const env = getRuntimeEnv();
   return {
     bottomReservedPx: BOTTOM_RESERVED_PX,
     exportFormat: 'png',
     pngRenderer: resolveDefaultPngRenderer(),
     llm: {
       baseURL: resolveDefaultBaseURL(),
-      model: env.VITE_API_MODEL?.trim() || DEFAULT_MODEL,
-      temperature: DEFAULT_TEMPERATURE,
-      topP: DEFAULT_TOP_P,
-      maxTokens: DEFAULT_MAX_TOKENS,
-      timeoutMs: DEFAULT_TIMEOUT_MS,
-      maxRetries: DEFAULT_MAX_RETRIES,
-      systemPrompt: DEFAULT_SYSTEM_PROMPT,
     },
     iconMapping: {
       enabled: false,
@@ -123,7 +101,6 @@ function sanitizeSettings(
   defaults: AppGlobalSettings = createDefaultGlobalSettings(),
 ): AppGlobalSettings {
   const llmRaw: Partial<LlmGlobalSettings> = raw.llm ?? {};
-  const promptCandidate = stringOrFallback(llmRaw.systemPrompt, defaults.llm.systemPrompt);
 
   const exportFormat = raw.exportFormat === 'png' || raw.exportFormat === 'svg'
     ? raw.exportFormat
@@ -140,13 +117,6 @@ function sanitizeSettings(
     pngRenderer,
     llm: {
       baseURL: nonEmptyTrimmedString(llmRaw.baseURL, defaults.llm.baseURL),
-      model: nonEmptyTrimmedString(llmRaw.model, defaults.llm.model),
-      temperature: clampNumber(llmRaw.temperature, defaults.llm.temperature, 0, 2),
-      topP: clampNumber(llmRaw.topP, defaults.llm.topP, 0, 1),
-      maxTokens: clampNumber(llmRaw.maxTokens, defaults.llm.maxTokens, 0, 200000, true),
-      timeoutMs: clampNumber(llmRaw.timeoutMs, defaults.llm.timeoutMs, 1000, 300000, true),
-      maxRetries: clampNumber(llmRaw.maxRetries, defaults.llm.maxRetries, 0, 10, true),
-      systemPrompt: promptCandidate.trim() ? promptCandidate : defaults.llm.systemPrompt,
     },
     iconMapping: {
       enabled: typeof iconMappingRaw.enabled === 'boolean' ? iconMappingRaw.enabled : defaults.iconMapping.enabled,

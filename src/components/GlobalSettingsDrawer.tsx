@@ -13,18 +13,22 @@ import {
   FormControlLabel,
 } from '@mui/material';
 import { Tune } from '@mui/icons-material';
-import type { AppGlobalSettings, LlmGlobalSettings } from '../utils/global-settings';
+import type { AppGlobalSettings } from '../utils/global-settings';
 import { EXPORT_FORMAT_OPTIONS, PNG_RENDERER_OPTIONS } from '../utils/global-settings';
+import type { BackendLlmRuntimeConfig } from '../services/backend-config-service';
 import { md3Colors } from '../theme/md3-theme';
 
 interface GlobalSettingsDrawerProps {
   open: boolean;
   settings: AppGlobalSettings;
   cdnIconCount: number;
+  backendLlmConfig: BackendLlmRuntimeConfig | null;
+  backendLlmConfigLoading: boolean;
+  backendLlmConfigError: string | null;
   onClose: () => void;
   onReset: () => void;
+  onUpdateApiBaseUrl: (value: string) => void;
   onUpdateSettings: (updater: (prev: AppGlobalSettings) => AppGlobalSettings) => void;
-  onUpdateLlmSetting: <K extends keyof LlmGlobalSettings>(key: K, value: LlmGlobalSettings[K]) => void;
   onUpdateIconMappingSetting: <K extends keyof AppGlobalSettings['iconMapping']>(
     key: K,
     value: AppGlobalSettings['iconMapping'][K]
@@ -35,20 +39,23 @@ const GlobalSettingsDrawer: React.FC<GlobalSettingsDrawerProps> = ({
   open,
   settings,
   cdnIconCount,
+  backendLlmConfig,
+  backendLlmConfigLoading,
+  backendLlmConfigError,
   onClose,
   onReset,
+  onUpdateApiBaseUrl,
   onUpdateSettings,
-  onUpdateLlmSetting,
   onUpdateIconMappingSetting,
 }) => {
-  const parseFloatInput = (value: string): number | null => {
-    const parsed = Number.parseFloat(value);
-    return Number.isFinite(parsed) ? parsed : null;
-  };
-
   const parseIntInput = (value: string): number | null => {
     const parsed = Number.parseInt(value, 10);
     return Number.isFinite(parsed) ? parsed : null;
+  };
+
+  const readOnlyValue = (value: unknown, fallback = 'N/A'): string => {
+    const text = String(value ?? '').trim();
+    return text || fallback;
   };
 
   return (
@@ -201,101 +208,101 @@ const GlobalSettingsDrawer: React.FC<GlobalSettingsDrawerProps> = ({
         <Typography variant="caption" sx={{ color: md3Colors.surface.onSurfaceVariant }}>
           这里配置的是本项目后端 `/api/generate` 的地址，不是上游 LLM 的 Base URL。
         </Typography>
-        <Typography variant="caption" sx={{ color: md3Colors.surface.onSurfaceVariant }}>
-          Server 端默认会忽略客户端 LLM 覆盖参数，除非后端启用 `ALLOW_CLIENT_LLM_SETTINGS=true`。
-        </Typography>
         <TextField
           size="small"
           fullWidth
           label="App Backend API Base URL"
           value={settings.llm.baseURL}
-          onChange={(event) => onUpdateLlmSetting('baseURL', event.target.value)}
+          onChange={(event) => onUpdateApiBaseUrl(event.target.value)}
           helperText="例如 `/api` 或 `http://127.0.0.1:8080/api`；默认仅允许同源地址。"
         />
+        <Typography
+          variant="caption"
+          sx={{
+            color: md3Colors.surface.onSurfaceVariant,
+            fontWeight: 500,
+            letterSpacing: '0.4px',
+            mt: 1,
+          }}
+        >
+          LLM Runtime (Server Read-only)
+        </Typography>
+        {backendLlmConfigLoading && (
+          <Typography variant="caption" sx={{ color: md3Colors.surface.onSurfaceVariant }}>
+            Loading backend config...
+          </Typography>
+        )}
+        {backendLlmConfigError && (
+          <Typography variant="caption" sx={{ color: 'error.main' }}>
+            {backendLlmConfigError}
+          </Typography>
+        )}
         <TextField
           size="small"
           fullWidth
           label="Model"
-          value={settings.llm.model}
-          onChange={(event) => onUpdateLlmSetting('model', event.target.value)}
+          value={readOnlyValue(backendLlmConfig?.model)}
+          InputProps={{ readOnly: true }}
         />
         <Box sx={{ display: 'flex', gap: 1 }}>
           <TextField
             size="small"
             fullWidth
-            type="number"
             label="Temperature"
-            value={settings.llm.temperature}
-            inputProps={{ step: 0.1, min: 0, max: 2 }}
-            onChange={(event) => {
-              const value = parseFloatInput(event.target.value);
-              if (value === null) return;
-              onUpdateLlmSetting('temperature', value);
-            }}
+            value={readOnlyValue(backendLlmConfig?.temperature)}
+            InputProps={{ readOnly: true }}
           />
           <TextField
             size="small"
             fullWidth
-            type="number"
             label="Top P"
-            value={settings.llm.topP}
-            inputProps={{ step: 0.1, min: 0, max: 1 }}
-            onChange={(event) => {
-              const value = parseFloatInput(event.target.value);
-              if (value === null) return;
-              onUpdateLlmSetting('topP', value);
-            }}
+            value={readOnlyValue(backendLlmConfig?.topP)}
+            InputProps={{ readOnly: true }}
           />
         </Box>
         <Box sx={{ display: 'flex', gap: 1 }}>
           <TextField
             size="small"
             fullWidth
-            type="number"
             label="Max Tokens (0 = auto)"
-            value={settings.llm.maxTokens}
-            inputProps={{ step: 1, min: 0 }}
-            onChange={(event) => {
-              const value = parseIntInput(event.target.value);
-              if (value === null) return;
-              onUpdateLlmSetting('maxTokens', value);
-            }}
+            value={readOnlyValue(backendLlmConfig?.maxTokens)}
+            InputProps={{ readOnly: true }}
           />
           <TextField
             size="small"
             fullWidth
-            type="number"
             label="Timeout (ms)"
-            value={settings.llm.timeoutMs}
-            inputProps={{ step: 1000, min: 1000 }}
-            onChange={(event) => {
-              const value = parseIntInput(event.target.value);
-              if (value === null) return;
-              onUpdateLlmSetting('timeoutMs', value);
-            }}
+            value={readOnlyValue(backendLlmConfig?.timeoutMs)}
+            InputProps={{ readOnly: true }}
           />
         </Box>
         <TextField
           size="small"
           fullWidth
-          type="number"
           label="Max Retries"
-          value={settings.llm.maxRetries}
-          inputProps={{ step: 1, min: 0 }}
-          onChange={(event) => {
-            const value = parseIntInput(event.target.value);
-            if (value === null) return;
-            onUpdateLlmSetting('maxRetries', value);
-          }}
+          value={readOnlyValue(backendLlmConfig?.maxRetries)}
+          InputProps={{ readOnly: true }}
         />
         <TextField
           size="small"
           fullWidth
-          multiline
-          minRows={8}
-          label="System Prompt (sent to /generate)"
-          value={settings.llm.systemPrompt}
-          onChange={(event) => onUpdateLlmSetting('systemPrompt', event.target.value)}
+          label="Server LLM Base URL"
+          value={readOnlyValue(backendLlmConfig?.baseURL)}
+          InputProps={{ readOnly: true }}
+        />
+        <TextField
+          size="small"
+          fullWidth
+          label="Allowed Models"
+          value={readOnlyValue((backendLlmConfig?.allowedModels || []).join(', '))}
+          InputProps={{ readOnly: true }}
+        />
+        <TextField
+          size="small"
+          fullWidth
+          label="Client LLM Override"
+          value={backendLlmConfig?.allowClientLlmSettings ? 'Enabled' : 'Disabled'}
+          InputProps={{ readOnly: true }}
         />
 
         <Typography
@@ -319,7 +326,7 @@ const GlobalSettingsDrawer: React.FC<GlobalSettingsDrawerProps> = ({
           }
           label={
             <Typography variant="body2" sx={{ color: md3Colors.surface.onSurfaceVariant }}>
-              Enable CDN Matching & 3 Icons Prompt
+              Enable CDN Icon Matching
             </Typography>
           }
         />
