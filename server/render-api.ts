@@ -142,8 +142,10 @@ const TRUST_X_FORWARDED_FOR = parseBoolEnv('TRUST_X_FORWARDED_FOR', false);
 const CORS_ALLOW_ORIGIN = readEnv('CORS_ALLOW_ORIGIN');
 const CORS_POLICY = parseCorsPolicy(CORS_ALLOW_ORIGIN);
 
+const NODE_ENV = readEnv('NODE_ENV').toLowerCase();
+const IS_PRODUCTION = NODE_ENV === 'production';
 const API_BEARER_TOKEN = readEnv('API_BEARER_TOKEN');
-const ALLOW_UNAUTHENTICATED_WRITE = parseBoolEnv('ALLOW_UNAUTHENTICATED_WRITE', false);
+const ALLOW_UNAUTHENTICATED_WRITE = parseBoolEnv('ALLOW_UNAUTHENTICATED_WRITE', !IS_PRODUCTION);
 
 // Keep server-side LLM upstream config isolated from browser-facing `VITE_*` vars.
 const LLM_API_KEY = readEnv('LLM_API_KEY');
@@ -495,6 +497,89 @@ function resolveLlmOptions(body: Json): { inputText: string; options: LlmResolve
   };
 }
 
+function pushUniqueNonEmptyText(target: string[], value: unknown): void {
+  const text = String(value ?? '').trim();
+  if (!text) return;
+  if (!target.includes(text)) {
+    target.push(text);
+  }
+}
+
+function collectKnownTextFields(value: unknown, target: string[], depth = 0): void {
+  if (depth > 5 || value === null || value === undefined) return;
+
+  if (typeof value === 'string') {
+    pushUniqueNonEmptyText(target, value);
+    return;
+  }
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      collectKnownTextFields(item, target, depth + 1);
+    }
+    return;
+  }
+
+  if (typeof value !== 'object') return;
+  const obj = value as Json;
+
+  // Compatible providers may use different key names for final/reasoning text.
+  for (const key of ['text', 'content', 'output_text', 'reasoning_content']) {
+    if (key in obj) {
+      collectKnownTextFields(obj[key], target, depth + 1);
+    }
+  }
+}
+
+function extractChatMessageContent(value: unknown): string {
+  if (typeof value === 'string') return value.trim();
+  if (!Array.isArray(value)) return '';
+
+  const parts: string[] = [];
+  for (const item of value) {
+    if (typeof item === 'string') {
+      pushUniqueNonEmptyText(parts, item);
+      continue;
+    }
+    if (!item || typeof item !== 'object') continue;
+    const obj = item as Json;
+    pushUniqueNonEmptyText(parts, obj.text);
+    pushUniqueNonEmptyText(parts, obj.content);
+  }
+  return parts.join('\n').trim();
+}
+
+function extractLlmTextCandidates(response: unknown): string[] {
+  if (!response || typeof response !== 'object') return [];
+  const data = response as Json;
+  const choices = Array.isArray(data.choices) ? data.choices : [];
+  const firstChoice = choices[0];
+  const candidates: string[] = [];
+
+  if (firstChoice && typeof firstChoice === 'object') {
+    const choiceObj = firstChoice as Json;
+    const message = choiceObj.message;
+
+    if (message && typeof message === 'object') {
+      const messageObj = message as Json;
+
+      // 1) Standard assistant content (preferred final answer)
+      pushUniqueNonEmptyText(candidates, extractChatMessageContent(messageObj.content));
+
+      // 2) Compatibility fallback for providers exposing reasoning content separately.
+      collectKnownTextFields(messageObj.reasoning_content, candidates);
+      collectKnownTextFields(messageObj.reasoning, candidates);
+    }
+
+    // 3) Legacy-compatible fallback.
+    pushUniqueNonEmptyText(candidates, choiceObj.text);
+  }
+
+  // 4) Extra compatibility for responses-like payloads.
+  collectKnownTextFields(data.output_text, candidates);
+  return candidates;
+}
+
 async function generateContentViaLlm(inputText: string, options: LlmResolvedOptions): Promise<GeneratedContent> {
   if (!LLM_API_KEY) {
     throw new Error('LLM_API_KEY is not configured on the server');
@@ -518,17 +603,17 @@ async function generateContentViaLlm(inputText: string, options: LlmResolvedOpti
     ...(options.maxTokens > 0 ? { max_tokens: options.maxTokens } : {}),
   });
 
-  const content = response.choices[0]?.message?.content;
-  if (!content || typeof content !== 'string') {
+  const candidates = extractLlmTextCandidates(response);
+  if (candidates.length === 0) {
     throw new Error('LLM returned empty response');
   }
 
-  const parsed = parseMarkdownToContent(content) ?? parseJsonToContent(content);
-  if (!parsed) {
-    throw new Error('Failed to parse LLM response into GeneratedContent');
+  for (const candidate of candidates) {
+    const parsed = parseMarkdownToContent(candidate) ?? parseJsonToContent(candidate);
+    if (parsed) return parsed;
   }
 
-  return parsed;
+  throw new Error('Failed to parse LLM response into GeneratedContent');
 }
 
 function withTimeout<T>(promise: Promise<T>, timeoutMs: number, label: string): Promise<T> {
@@ -863,8 +948,8 @@ async function ensurePlaywrightBrowserReady(opts: { args: string[]; executablePa
 async function main(): Promise<void> {
   if (!API_BEARER_TOKEN && !ALLOW_UNAUTHENTICATED_WRITE) {
     throw new Error(
-      'API_BEARER_TOKEN is required. ' +
-      'Set ALLOW_UNAUTHENTICATED_WRITE=true only for trusted local development.'
+      'API_BEARER_TOKEN is required when unauthenticated writes are disabled. ' +
+      'Set API_BEARER_TOKEN or ALLOW_UNAUTHENTICATED_WRITE=true.'
     );
   }
 
@@ -1195,7 +1280,13 @@ async function main(): Promise<void> {
     console.log(`[${nowIso()}] concurrency: 1x=${MAX_CONCURRENT_1X} 2x=${MAX_CONCURRENT_2X} queueLimit=${QUEUE_LIMIT}`);
     console.log(`[${nowIso()}] rate limit: window=${RATE_LIMIT_WINDOW_MS}ms render=${RATE_LIMIT_MAX_RENDER} generate=${RATE_LIMIT_MAX_GENERATE}`);
     if (!API_BEARER_TOKEN && ALLOW_UNAUTHENTICATED_WRITE) {
-      console.warn(`[${nowIso()}] WARN: unauthenticated writes are enabled (ALLOW_UNAUTHENTICATED_WRITE=true).`);
+      const level = IS_PRODUCTION ? 'WARN' : 'INFO';
+      const hint = IS_PRODUCTION
+        ? 'Set API_BEARER_TOKEN to protect write endpoints in production.'
+        : 'This is convenient for local development.';
+      console.warn(
+        `[${nowIso()}] ${level}: unauthenticated writes are enabled (ALLOW_UNAUTHENTICATED_WRITE=true). ${hint}`
+      );
     }
     if (ALLOW_CLIENT_LLM_SETTINGS) {
       console.warn(`[${nowIso()}] WARN: client LLM overrides are enabled (ALLOW_CLIENT_LLM_SETTINGS=true).`);

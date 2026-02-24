@@ -1,6 +1,7 @@
 # juya-news-card
 
 一个基于 React + TypeScript 的新闻卡片生成与渲染工具，支持模板预览、服务端 LLM 生成、PNG 导出（前端或后端渲染）。
+> 声明：这是一个 `100% AI` 项目，`0` 人工编写。
 
 ![软件界面](assets/screenshot.png)
 
@@ -9,6 +10,51 @@
 - 174 个主题模板统一渲染（`templates/`）
 - PNG 导出支持两种模式：浏览器渲染 / 后端 Playwright 渲染
 - `render-api` 内置限流、Bearer 鉴权、CORS 白名单
+
+## 项目组成（CLI / API / 前端 / Skill / Prompt）
+| 模块 | 主要入口 | 用途 | 典型命令 |
+| --- | --- | --- | --- |
+| 前端（Frontend） | `src/` | 提供可视化编辑、模板选择、导出入口 | `npm run dev` |
+| 后端接口（API） | `server/render-api.ts` | 提供 `/api/generate`（LLM 转结构化内容）和 `/render`（服务端渲染 PNG） | `npm run render-api` |
+| 命令行工具（CLI） | `scripts/` | 本地脚本化生成/批量截图/离线渲染 | `npm run generate` / `npm run batch-generate` / `npm run test-render` |
+| Agent Skill | `.agents/skills/juya-news-card-operator/SKILL.md` | 让 Codex/Agent 按固定流程操作本项目（偏自动化工作流） | 在 agent 会话中按 skill 触发 |
+| Runtime Prompt（项目内） | `src/services/llm-prompt.ts` | 项目运行时使用的默认系统提示词；用于 `/api/generate` | API 默认读 `DEFAULT_SYSTEM_PROMPT` |
+| Standalone Prompt（项目外） | `claude-style-prompt.md` | 独立 Prompt，提供给任意 AI 生成符合 `claudeStyle` 主题的完整 HTML；不被项目运行时自动读取 | 手动复制给任意 AI 使用 |
+
+关系可以简单理解为：
+- 常规使用：前端 -> API -> 上游 LLM -> 返回结构化内容 -> 浏览器或 API 渲染 PNG。
+- 脚本使用：CLI 直接调用本地逻辑（可走 LLM 或 mock 数据）并输出结果。
+- Agent 使用：Skill 约束操作步骤，Runtime Prompt 约束生成质量与格式。
+- Standalone Prompt 使用：`claude-style-prompt.md` 是项目外工作流，直接喂给任意 AI 生成 `claudeStyle` HTML。
+
+## 架构图（README 渲染版）
+```mermaid
+flowchart LR
+  User[User] --> FE[Frontend<br/>src/]
+  User --> CLI[CLI<br/>scripts/]
+  User --> AGENT[Agent Skill<br/>.agents/skills/...]
+  User --> ANYAI[Any AI]
+
+  FE -->|POST /api/generate| API[Render API<br/>server/render-api.ts]
+  FE -->|Browser PNG export| FEPNG[PNG (Browser)]
+  FE -->|POST /render| API
+
+  API -->|DEFAULT_SYSTEM_PROMPT| RPROMPT[Runtime Prompt<br/>src/services/llm-prompt.ts]
+  API -->|LLM_API_KEY / BASE_URL / MODEL| LLM[Upstream LLM]
+  API -->|SSR + Playwright| APIPNG[PNG (Render API)]
+  API --> TMPL[Templates<br/>src/templates/]
+
+  CLI -->|optional LLM call| LLM
+  CLI -->|SSR + Playwright| CLIPNG[PNG (CLI)]
+  CLI --> TMPL
+
+  AGENT -->|orchestrate workflow| CLI
+  AGENT -->|prompt rules| RPROMPT
+  ANYAI -->|with claude-style-prompt.md| SPROMPT[Standalone Prompt<br/>claude-style-prompt.md]
+  SPROMPT --> SHTML[claudeStyle HTML]
+```
+
+详细说明见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
 ## 环境要求
 - Node.js >= 20
@@ -22,6 +68,12 @@ npm install
 2. 准备环境变量
 ```bash
 cp .env.example .env.local
+```
+至少先配置这 3 项：
+```env
+LLM_API_KEY=your-api-key
+LLM_API_BASE_URL=https://api.openai.com/v1
+LLM_MODEL=gpt-4o-mini
 ```
 3. 启动后端（render + generate API）
 ```bash
@@ -42,7 +94,7 @@ npm run dev
 ```bash
 cp .env.docker.example .env.docker
 ```
-2. 按需修改 `.env.docker`（至少 `API_BEARER_TOKEN`、`LLM_API_KEY`）
+2. 按需修改 `.env.docker`（至少配置 `LLM_API_KEY`、`LLM_API_BASE_URL`、`LLM_MODEL`）
 3. 启动服务
 ```bash
 npm run docker:up
@@ -71,77 +123,33 @@ curl http://127.0.0.1:8080/healthz
 - 前端开发服务：`3000`（`VITE_DEV_PORT`）
 - 后端服务：`8080`（`RENDER_API_PORT`）
 
-## 配置分层（统一口径）
-1. 浏览器侧变量（`VITE_*`）：给前端用，最终会进浏览器，不要放密钥。
-2. 服务端变量（无 `VITE_`）：给 `server/render-api.ts` 用，可放密钥。
-3. 上游 LLM 变量（`LLM_*`）：服务端调用模型供应商时使用。
-4. UI 里的 Global Settings 会持久化到浏览器 `localStorage`，会覆盖 `VITE_*` 默认值；需要点 `Reset` 才会回到环境变量默认值。
+## 环境变量（最小心智负担版）
+先记住：多数场景至少要配置 3 项。
 
-### 常见混淆（现在统一为以下语义）
-- `VITE_API_BASE_URL`：浏览器请求本项目后端（`/api/generate`）的地址。
-- `LLM_API_BASE_URL`：后端请求上游 LLM（如 OpenAI）的地址。
-- 二者不是同一个东西，不能互相替代。
-
-## 最小可用配置（建议先这样）
 ```env
-# Browser -> app backend
-VITE_API_BASE_URL=/api
-
-# Backend listen
-RENDER_API_PORT=8080
-
-# Backend auth (required unless ALLOW_UNAUTHENTICATED_WRITE=true)
-API_BEARER_TOKEN=change-me
-ALLOW_UNAUTHENTICATED_WRITE=false
-
-# Backend -> upstream LLM
 LLM_API_KEY=your-api-key
+LLM_API_BASE_URL=https://api.openai.com/v1
+LLM_MODEL=gpt-4o-mini
 ```
 
-## 关键变量清单
+说明：
+- 本地开发默认前端 `3000`、后端 `8080`，`npm run dev` 会自动代理 `/api`。
+- 非生产环境默认允许无 Token 调用写接口，方便开箱即用。
+- 生产环境默认不允许无 Token 写接口（更安全）。
 
-### A) 浏览器侧（公开）
-| 变量 | 作用 | 默认值 |
-| --- | --- | --- |
-| `VITE_API_BASE_URL` | 浏览器请求本项目后端 API 的基址 | `/api` |
-| `VITE_API_BEARER_TOKEN` | 浏览器请求后端时附带的 Bearer（可选） | 空 |
-| `VITE_ALLOW_CROSS_ORIGIN_API` | 是否允许前端请求跨域 API 基址 | `false` |
-| `VITE_ALLOW_CROSS_ORIGIN_BEARER` | 是否允许 Bearer 跨域发送 | `false` |
-| `VITE_API_MODEL` | 前端“生成参数”默认模型值 | `gpt-4o-mini` |
-| `VITE_PNG_RENDERER_DEFAULT` | PNG 默认渲染器（`browser` / `render-api`） | `browser` |
-| `VITE_RENDER_API_BASE_URL` | 单独 render 服务地址（可选） | 空（同源 `/api`） |
-| `VITE_RENDER_API_BEARER_TOKEN` | 浏览器调用 render 时 Bearer（可选） | 空 |
+如果要公开部署，再加这几项：
+```env
+API_BEARER_TOKEN=change-me
+ALLOW_UNAUTHENTICATED_WRITE=false
+CORS_ALLOW_ORIGIN=https://your-frontend-domain.example
+```
 
-### B) 前端开发服务（本地）
-| 变量 | 作用 | 默认值 |
-| --- | --- | --- |
-| `VITE_DEV_HOST` | Vite 监听地址 | `0.0.0.0` |
-| `VITE_DEV_PORT` | Vite 端口 | `3000` |
-| `VITE_API_PROXY_TARGET` | `/api` 代理目标（可选） | 空（自动推导） |
-| `VITE_RENDER_API_PORT` | 自动推导代理目标端口 | `8080` |
-
-### C) 后端服务（可保密）
-| 变量 | 作用 | 默认值 |
-| --- | --- | --- |
-| `RENDER_API_HOST` | 后端监听地址 | `127.0.0.1` |
-| `RENDER_API_PORT` | 后端监听端口 | `8080` |
-| `CORS_ALLOW_ORIGIN` | CORS 白名单 | `http://127.0.0.1:3000` |
-| `API_BEARER_TOKEN` | 保护 `/render` 与 `/api/generate` | `change-me`（建议） |
-| `ALLOW_UNAUTHENTICATED_WRITE` | 允许无 Token 写接口（仅本地调试） | `false` |
-| `RATE_LIMIT_MAX_RENDER` | `/render` 限流 | `60` |
-| `RATE_LIMIT_MAX_GENERATE` | `/api/generate` 限流 | `30` |
-
-### D) 后端调用上游 LLM（可保密）
-| 变量 | 作用 | 默认值 |
-| --- | --- | --- |
-| `LLM_API_KEY` | 上游 LLM 密钥（必填） | 无 |
-| `LLM_API_BASE_URL` | 上游 LLM Base URL（可选） | 空（SDK 默认） |
-| `LLM_MODEL` | 后端默认模型 | `gpt-4o-mini` |
-| `LLM_TIMEOUT_MS` | 上游调用超时 | `60000` |
-| `LLM_MAX_RETRIES` | 上游调用重试次数 | `0` |
-| `ALLOW_CLIENT_LLM_SETTINGS` | 是否允许客户端覆盖模型/提示词等 | `false` |
-| `LLM_ALLOWED_MODELS` | 允许客户端选择的模型白名单（逗号分隔） | `LLM_MODEL` |
-| `LLM_MAX_TOKENS_CAP` | 客户端 `maxTokens` 上限 | `4096` |
+补充：
+- `VITE_*` 给浏览器用，不要放密钥。
+- UI 里的 `App Backend API Base URL`（旧名 `Generate API Base URL`）对应 `VITE_API_BASE_URL`，表示本项目后端地址（用于 `/api/generate`），不是上游 LLM 的 `LLM_API_BASE_URL`。
+- `LLM_*` 给服务端调用上游模型用。
+- UI 的 Global Settings 会写入 `localStorage`；点击 `Reset` 可回到环境变量默认值。
+- 其余高级参数（并发、限流、超时、Chromium）都已给默认值，按需再去 `.env.example` 取消注释即可。
 
 ## API
 - `GET /healthz`：健康检查
@@ -172,10 +180,13 @@ npx playwright install chromium-headless-shell
 ```
 
 ## 项目结构
-- `src/`：前端源码
-- `server/`：后端运行服务（render + generate API）
-- `scripts/`：批量生成与审计脚本
-- `tests/`：本地测试数据
+- `src/`：前端应用、模板系统、客户端服务（含默认 LLM Prompt）
+- `server/`：后端 API（`/api/generate` + `/render` + `/healthz` + `/themes`）
+- `scripts/`：CLI 与批处理脚本（生成、离线渲染、全模板截图、审计）
+- `.agents/skills/`：Agent skill 定义（当前含 `juya-news-card-operator`）
+- `claude-style-prompt.md`：独立 Prompt（项目外），供任意 AI 生成 `claudeStyle` HTML；不被运行时自动读取
+- `docs/ARCHITECTURE.md`：架构与数据流说明
+- `tests/`：测试与 mock 数据
 - `assets/`：可选本地资源（`assets/htmlFont.ttf` 可为空）
 
 ## 开源说明

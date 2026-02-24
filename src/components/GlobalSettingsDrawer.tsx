@@ -196,7 +196,10 @@ const GlobalSettingsDrawer: React.FC<GlobalSettingsDrawerProps> = ({
             mt: 0.5,
           }}
         >
-          Generate API Request
+          Generate Request (App Backend)
+        </Typography>
+        <Typography variant="caption" sx={{ color: md3Colors.surface.onSurfaceVariant }}>
+          这里配置的是本项目后端 `/api/generate` 的地址，不是上游 LLM 的 Base URL。
         </Typography>
         <Typography variant="caption" sx={{ color: md3Colors.surface.onSurfaceVariant }}>
           Server 端默认会忽略客户端 LLM 覆盖参数，除非后端启用 `ALLOW_CLIENT_LLM_SETTINGS=true`。
@@ -204,10 +207,10 @@ const GlobalSettingsDrawer: React.FC<GlobalSettingsDrawerProps> = ({
         <TextField
           size="small"
           fullWidth
-          label="Generate API Base URL"
+          label="App Backend API Base URL"
           value={settings.llm.baseURL}
           onChange={(event) => onUpdateLlmSetting('baseURL', event.target.value)}
-          helperText="默认仅允许同源地址；跨域需显式配置 VITE_ALLOW_CROSS_ORIGIN_API=true。"
+          helperText="例如 `/api` 或 `http://127.0.0.1:8080/api`；默认仅允许同源地址。"
         />
         <TextField
           size="small"
