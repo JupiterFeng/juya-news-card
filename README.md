@@ -30,28 +30,28 @@
 ## 架构图（README 渲染版）
 ```mermaid
 flowchart LR
-  User[User] --> FE[Frontend<br/>src/]
-  User --> CLI[CLI<br/>scripts/]
-  User --> AGENT[Agent Skill<br/>.agents/skills/...]
-  User --> ANYAI[Any AI]
+  user[User] --> fe["Frontend\nsrc/"]
+  user --> cli["CLI\nscripts/"]
+  user --> agent["Agent Skill\n.agents/skills/..."]
+  user --> any_ai["Any AI"]
 
-  FE -->|POST /api/generate| API[Render API<br/>server/render-api.ts]
-  FE -->|Browser PNG export| FEPNG[PNG (Browser)]
-  FE -->|POST /render| API
+  fe -->|"POST /api/generate"| api["Render API\nserver/render-api.ts"]
+  fe -->|"Browser PNG export"| fe_png["PNG (Browser)"]
+  fe -->|"POST /render"| api
 
-  API -->|DEFAULT_SYSTEM_PROMPT| RPROMPT[Runtime Prompt<br/>src/services/llm-prompt.ts]
-  API -->|LLM_API_KEY / BASE_URL / MODEL| LLM[Upstream LLM]
-  API -->|SSR + Playwright| APIPNG[PNG (Render API)]
-  API --> TMPL[Templates<br/>src/templates/]
+  api -->|"DEFAULT_SYSTEM_PROMPT"| runtime_prompt["Runtime Prompt\nsrc/services/llm-prompt.ts"]
+  api -->|"LLM_API_KEY / BASE_URL / MODEL"| llm["Upstream LLM"]
+  api -->|"SSR + Playwright"| api_png["PNG (Render API)"]
+  api --> templates["Templates\nsrc/templates/"]
 
-  CLI -->|optional LLM call| LLM
-  CLI -->|SSR + Playwright| CLIPNG[PNG (CLI)]
-  CLI --> TMPL
+  cli -->|"optional LLM call"| llm
+  cli -->|"SSR + Playwright"| cli_png["PNG (CLI)"]
+  cli --> templates
 
-  AGENT -->|orchestrate workflow| CLI
-  AGENT -->|prompt rules| RPROMPT
-  ANYAI -->|with claude-style-prompt.md| SPROMPT[Standalone Prompt<br/>claude-style-prompt.md]
-  SPROMPT --> SHTML[claudeStyle HTML]
+  agent -->|"orchestrate workflow"| cli
+  agent -->|"prompt rules"| runtime_prompt
+  any_ai -->|"use claude-style-prompt.md"| standalone_prompt["Standalone Prompt\nclaude-style-prompt.md"]
+  standalone_prompt --> claude_html["claudeStyle HTML"]
 ```
 
 详细说明见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
