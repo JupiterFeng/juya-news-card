@@ -1,5 +1,4 @@
 import { TemplateMap, TemplateConfig } from './types';
-import { registerTemplateResolver } from '../utils/template';
 
 // 已有主题 (5个)
 import { newsCardTemplate } from './newsCard';
@@ -491,15 +490,7 @@ export const TEMPLATES: TemplateMap = {
   hybrid2D3D: hybrid2D3DTemplate,
 };
 
-/**
- * 默认模板 ID
- */
-export const DEFAULT_TEMPLATE = 'claudeStyle';
-
-registerTemplateResolver({
-  defaultTemplateId: DEFAULT_TEMPLATE,
-  resolveTemplateById: (id) => TEMPLATES[id],
-});
+export { DEFAULT_TEMPLATE } from './catalog';
 
 /**
  * 获取模板列表

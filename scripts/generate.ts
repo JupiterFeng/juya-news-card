@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import OpenAI from 'openai';
 import { chromium } from 'playwright';
 import dotenv from 'dotenv';
-import { generateDownloadableHtml } from '../src/utils/template.js';
+import { generateTemplateHtml } from '../src/templates/ssr-runtime.js';
 import { sanitizeDescHtml } from '../src/utils/desc-format.js';
 import type { GeneratedContent } from '../src/types';
 
@@ -109,7 +109,7 @@ Return ONLY raw JSON, no other text.`;
     };
 
     console.log('--- 2. Generating HTML ---');
-    const html = generateDownloadableHtml(normalizedContent);
+    const html = generateTemplateHtml(normalizedContent);
     const htmlPath = path.join(outputDir, 'news-card.html');
     fs.writeFileSync(htmlPath, html);
     console.log(`Saved HTML to ${htmlPath}`);

@@ -69,7 +69,9 @@ test('loadGlobalSettings drops legacy llm fields from cached payload', () => {
     const raw = windowMock.localStorage.getItem(STORAGE_KEY);
     assert.ok(raw);
     const parsed = JSON.parse(raw);
-    assert.deepEqual(parsed.llm, { baseURL: 'http://127.0.0.1:8080/api' });
+    assert.equal(parsed.version, 3);
+    assert.deepEqual(parsed.overrides?.llm, { baseURL: 'http://127.0.0.1:8080/api' });
+    assert.equal(parsed.overrides?.llm?.model, undefined);
   } finally {
     uninstallWindow();
   }
@@ -80,6 +82,49 @@ test('loadGlobalSettings uses origin-based default backend api base url', () => 
   try {
     const loaded = loadGlobalSettings();
     assert.equal(loaded.llm.baseURL, 'http://example.test:3000/api');
+  } finally {
+    uninstallWindow();
+  }
+});
+
+test('saveGlobalSettings persists overrides only so defaults can move with runtime origin', () => {
+  const windowMock = installWindow('http://origin-a.test:3000');
+  try {
+    const loaded = loadGlobalSettings();
+    assert.equal(loaded.llm.baseURL, 'http://origin-a.test:3000/api');
+
+    saveGlobalSettings(loaded);
+
+    const raw = windowMock.localStorage.getItem(STORAGE_KEY);
+    assert.ok(raw);
+    const parsed = JSON.parse(raw);
+    assert.equal(parsed.version, 3);
+    assert.deepEqual(parsed.overrides, {});
+
+    windowMock.location.origin = 'http://origin-b.test:3000';
+    const reloaded = loadGlobalSettings();
+    assert.equal(reloaded.llm.baseURL, 'http://origin-b.test:3000/api');
+  } finally {
+    uninstallWindow();
+  }
+});
+
+test('custom backend base url override remains stable after runtime origin changes', () => {
+  const windowMock = installWindow('http://origin-a.test:3000');
+  try {
+    const loaded = loadGlobalSettings();
+    const customized = saveGlobalSettings({
+      ...loaded,
+      llm: {
+        ...loaded.llm,
+        baseURL: 'http://127.0.0.1:8080/api',
+      },
+    });
+    assert.equal(customized.llm.baseURL, 'http://127.0.0.1:8080/api');
+
+    windowMock.location.origin = 'http://origin-b.test:3000';
+    const reloaded = loadGlobalSettings();
+    assert.equal(reloaded.llm.baseURL, 'http://127.0.0.1:8080/api');
   } finally {
     uninstallWindow();
   }

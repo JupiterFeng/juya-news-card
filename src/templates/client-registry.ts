@@ -1,5 +1,6 @@
 import metaJson from './meta.json';
 import type { TemplateConfig } from './types';
+export { DEFAULT_TEMPLATE } from './catalog';
 
 type TemplateMetaEntry = {
   filePath: string;
@@ -28,8 +29,6 @@ export type TemplateSummary = {
 const TEMPLATE_META = metaJson as TemplateMetaJson;
 const MODULE_LOADERS = import.meta.glob('./*.tsx');
 const TEMPLATE_CACHE = new Map<string, Promise<TemplateConfig>>();
-
-export const DEFAULT_TEMPLATE = 'claudeStyle';
 
 const TEMPLATE_SUMMARIES: Record<string, TemplateSummary> = Object.fromEntries(
   Object.entries(TEMPLATE_META.templates).map(([id, entry]) => [

@@ -2,6 +2,7 @@ import { BOTTOM_RESERVED_PX } from './layout-calculator';
 
 const STORAGE_KEY = 'p2v-global-settings-v2';
 const LEGACY_STORAGE_KEY = 'p2v-global-settings-v1';
+const STORAGE_VERSION = 3 as const;
 
 export type ExportFormat = 'png' | 'svg';
 export type PngRenderer = 'browser' | 'render-api';
@@ -33,6 +34,11 @@ export interface AppGlobalSettings {
   llm: LlmGlobalSettings;
   iconMapping: IconMappingSettings;
 }
+
+type PersistedGlobalSettingsV3 = {
+  version: typeof STORAGE_VERSION;
+  overrides: Partial<AppGlobalSettings>;
+};
 
 function getRuntimeEnv(): Partial<ImportMetaEnv> {
   const runtimeMeta = import.meta as ImportMeta & { env?: ImportMetaEnv };
@@ -126,6 +132,86 @@ function sanitizeSettings(
   };
 }
 
+function hasOwnKeys(value: object): boolean {
+  return Object.keys(value).length > 0;
+}
+
+function mergeWithDefaults(
+  raw: Partial<AppGlobalSettings>,
+  defaults: AppGlobalSettings,
+): Partial<AppGlobalSettings> {
+  return {
+    ...defaults,
+    ...raw,
+    llm: {
+      ...defaults.llm,
+      ...(raw.llm || {}),
+    },
+    iconMapping: {
+      ...defaults.iconMapping,
+      ...(raw.iconMapping || {}),
+    },
+  };
+}
+
+function parsePersistedSettings(raw: string): Partial<AppGlobalSettings> | null {
+  const parsed = JSON.parse(raw) as unknown;
+  if (!parsed || typeof parsed !== 'object') return null;
+
+  const objectValue = parsed as Record<string, unknown>;
+  if (
+    objectValue.version === STORAGE_VERSION &&
+    objectValue.overrides &&
+    typeof objectValue.overrides === 'object'
+  ) {
+    return objectValue.overrides as Partial<AppGlobalSettings>;
+  }
+
+  // Backward compatibility: old payload is plain settings object.
+  return parsed as Partial<AppGlobalSettings>;
+}
+
+function buildSettingsOverrides(
+  settings: AppGlobalSettings,
+  defaults: AppGlobalSettings,
+): Partial<AppGlobalSettings> {
+  const overrides: Partial<AppGlobalSettings> = {};
+
+  if (settings.bottomReservedPx !== defaults.bottomReservedPx) {
+    overrides.bottomReservedPx = settings.bottomReservedPx;
+  }
+  if (settings.exportFormat !== defaults.exportFormat) {
+    overrides.exportFormat = settings.exportFormat;
+  }
+  if (settings.pngRenderer !== defaults.pngRenderer) {
+    overrides.pngRenderer = settings.pngRenderer;
+  }
+
+  const llmOverrides: Partial<LlmGlobalSettings> = {};
+  if (settings.llm.baseURL !== defaults.llm.baseURL) {
+    llmOverrides.baseURL = settings.llm.baseURL;
+  }
+  if (hasOwnKeys(llmOverrides)) {
+    overrides.llm = llmOverrides as LlmGlobalSettings;
+  }
+
+  const iconMappingOverrides: Partial<IconMappingSettings> = {};
+  if (settings.iconMapping.enabled !== defaults.iconMapping.enabled) {
+    iconMappingOverrides.enabled = settings.iconMapping.enabled;
+  }
+  if (settings.iconMapping.cdnUrl !== defaults.iconMapping.cdnUrl) {
+    iconMappingOverrides.cdnUrl = settings.iconMapping.cdnUrl;
+  }
+  if (settings.iconMapping.fallbackIcon !== defaults.iconMapping.fallbackIcon) {
+    iconMappingOverrides.fallbackIcon = settings.iconMapping.fallbackIcon;
+  }
+  if (hasOwnKeys(iconMappingOverrides)) {
+    overrides.iconMapping = iconMappingOverrides as IconMappingSettings;
+  }
+
+  return overrides;
+}
+
 function removeLegacySettings(): void {
   if (typeof window === 'undefined') return;
   try {
@@ -146,18 +232,12 @@ export function loadGlobalSettings(): AppGlobalSettings {
       return defaults;
     }
 
-    const parsed = JSON.parse(raw) as Partial<AppGlobalSettings>;
-    const normalized = sanitizeSettings(
-      {
-        ...defaults,
-        ...parsed,
-        llm: {
-          ...defaults.llm,
-          ...(parsed.llm || {}),
-        },
-      },
-      defaults,
-    );
+    const parsed = parsePersistedSettings(raw);
+    if (!parsed) {
+      removeLegacySettings();
+      return defaults;
+    }
+    const normalized = sanitizeSettings(mergeWithDefaults(parsed, defaults), defaults);
 
     removeLegacySettings();
     return normalized;
@@ -170,10 +250,15 @@ export function loadGlobalSettings(): AppGlobalSettings {
 export function saveGlobalSettings(settings: AppGlobalSettings): AppGlobalSettings {
   const defaults = createDefaultGlobalSettings();
   const normalized = sanitizeSettings(settings, defaults);
+  const overrides = buildSettingsOverrides(normalized, defaults);
+  const payload: PersistedGlobalSettingsV3 = {
+    version: STORAGE_VERSION,
+    overrides,
+  };
 
   if (typeof window !== 'undefined') {
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
       removeLegacySettings();
     } catch (error) {
       console.warn('Failed to persist global settings.', error);

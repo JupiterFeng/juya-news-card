@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { chromium } from 'playwright';
-import { generateDownloadableHtml } from '../src/utils/template.js';
+import { generateTemplateHtml } from '../src/templates/ssr-runtime.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,7 +43,7 @@ async function main() {
     const N = content.cards.length;
     console.log(`Rendering ${N} cards...`);
 
-    const html = generateDownloadableHtml(content);
+    const html = generateTemplateHtml(content);
     const finalHtml = fontFace ? html.replace('</head>', `${fontFace}</head>`) : html;
 
     const context = await browser.newContext({

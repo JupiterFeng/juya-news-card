@@ -11,12 +11,12 @@
 
 import fs from 'fs';
 import path from 'path';
-import vm from 'vm';
 import minimist from 'minimist';
 import { chromium } from 'playwright';
 import { fileURLToPath } from 'url';
 import mockData from '../tests/mock-data.json';
 import { TEMPLATES } from '../src/templates/index.js';
+import { THEME_CATEGORIES } from '../src/templates/catalog.js';
 import { generateHtmlFromReactComponent } from '../server/ssr-helper.js';
 
 interface ThemeCategory {
@@ -60,17 +60,7 @@ function parseCardCounts(raw: string): number[] {
 }
 
 function loadThemeCategories(): ThemeCategory[] {
-  const selectorPath = path.join(process.cwd(), 'src', 'components', 'TemplateSelector.tsx');
-  const source = fs.readFileSync(selectorPath, 'utf8');
-  const match = source.match(/const THEME_CATEGORIES:[\s\S]*?=\s*(\[[\s\S]*?\n\]);/);
-
-  if (!match) {
-    throw new Error('无法在 TemplateSelector.tsx 中解析 THEME_CATEGORIES');
-  }
-
-  const arrayLiteral = match[1];
-  const categories = vm.runInNewContext(`(${arrayLiteral})`) as ThemeCategory[];
-  return categories.filter((c) => Array.isArray(c.themeIds) && c.themeIds.length > 0);
+  return THEME_CATEGORIES.filter((c) => Array.isArray(c.themeIds) && c.themeIds.length > 0);
 }
 
 function pickSamples(themeIds: string[], sampleSize: number): string[] {
