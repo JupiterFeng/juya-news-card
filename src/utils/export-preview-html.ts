@@ -8,6 +8,7 @@ import {
   generateViewportFitScript,
   getStandardTitleConfig,
 } from './layout-calculator';
+import { readPublicEnv } from './runtime-env';
 
 interface GeneratePreviewHtmlOptions {
   template: TemplateConfig;
@@ -34,12 +35,8 @@ const DEFAULT_TAILWIND_SCRIPT_URL = 'https://cdn.tailwindcss.com';
 const DEFAULT_MATERIAL_ICONS_URL = 'https://fonts.googleapis.com/icon?family=Material+Icons';
 const DEFAULT_MATERIAL_SYMBOLS_URL = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap';
 
-function readEnv(viteKey: keyof ImportMetaEnv): string {
-  return String(import.meta.env[viteKey] || '').trim();
-}
-
-function resolveAssetUrl(viteKey: keyof ImportMetaEnv, fallback: string): string {
-  const value = readEnv(viteKey);
+function resolveAssetUrl(viteKey: string, fallback: string): string {
+  const value = readPublicEnv(viteKey);
   return value || fallback;
 }
 

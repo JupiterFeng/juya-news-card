@@ -1,4 +1,5 @@
 import { BOTTOM_RESERVED_PX } from './layout-calculator';
+import { readPublicEnv } from './runtime-env';
 
 const STORAGE_KEY = 'p2v-global-settings-v2';
 const LEGACY_STORAGE_KEY = 'p2v-global-settings-v1';
@@ -34,11 +35,6 @@ export interface AppGlobalSettings {
   iconMapping: IconMappingSettings;
 }
 
-function getRuntimeEnv(): Partial<ImportMetaEnv> {
-  const runtimeMeta = import.meta as ImportMeta & { env?: ImportMetaEnv };
-  return runtimeMeta.env || {};
-}
-
 function clampNumber(
   value: unknown,
   fallback: number,
@@ -64,8 +60,7 @@ function nonEmptyTrimmedString(value: unknown, fallback: string): string {
 }
 
 function resolveDefaultBaseURL(): string {
-  const env = getRuntimeEnv();
-  const envBaseUrl = env.VITE_API_BASE_URL?.trim();
+  const envBaseUrl = readPublicEnv('VITE_API_BASE_URL');
   if (envBaseUrl) return envBaseUrl;
   if (typeof window !== 'undefined') {
     return `${window.location.origin}/api`;
@@ -74,8 +69,7 @@ function resolveDefaultBaseURL(): string {
 }
 
 function resolveDefaultPngRenderer(): PngRenderer {
-  const env = getRuntimeEnv();
-  const raw = env.VITE_PNG_RENDERER_DEFAULT?.trim().toLowerCase();
+  const raw = readPublicEnv('VITE_PNG_RENDERER_DEFAULT').toLowerCase();
   if (raw === 'render-api' || raw === 'backend') return 'render-api';
   return 'browser';
 }

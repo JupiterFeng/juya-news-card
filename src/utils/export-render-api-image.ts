@@ -4,6 +4,7 @@ import {
   resolveBearerToken,
   resolveEndpoint,
 } from './request-security';
+import { readPublicEnv } from './runtime-env';
 
 const DEFAULT_RENDER_API_PORT = 8080;
 const DEFAULT_RENDER_API_TIMEOUT_MS = 12000;
@@ -28,14 +29,14 @@ function parsePort(value: string | undefined, fallback: number): number {
 }
 
 function resolveRenderApiPort(): number {
-  return parsePort(import.meta.env.VITE_RENDER_API_PORT?.trim(), DEFAULT_RENDER_API_PORT);
+  return parsePort(readPublicEnv('VITE_RENDER_API_PORT'), DEFAULT_RENDER_API_PORT);
 }
 
 function resolveRenderApiBaseUrl(explicitBaseUrl?: string): string {
   const explicit = explicitBaseUrl?.trim();
   if (explicit) return normalizeBaseUrl(explicit);
 
-  const envBaseUrl = import.meta.env.VITE_RENDER_API_BASE_URL?.trim();
+  const envBaseUrl = readPublicEnv('VITE_RENDER_API_BASE_URL');
   if (envBaseUrl) return normalizeBaseUrl(envBaseUrl);
 
   return '/api';
@@ -43,8 +44,8 @@ function resolveRenderApiBaseUrl(explicitBaseUrl?: string): string {
 
 function resolveRenderApiBearerToken(): string {
   return (
-    import.meta.env.VITE_RENDER_API_BEARER_TOKEN?.trim() ||
-    import.meta.env.VITE_API_BEARER_TOKEN?.trim() ||
+    readPublicEnv('VITE_RENDER_API_BEARER_TOKEN') ||
+    readPublicEnv('VITE_API_BEARER_TOKEN') ||
     ''
   );
 }

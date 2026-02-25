@@ -6,11 +6,12 @@ import {
   resolveBearerToken,
   resolveEndpoint,
 } from '../utils/request-security';
+import { readPublicEnv } from '../utils/runtime-env';
 
-const DEFAULT_TIMEOUT_MS = 60000;
+const DEFAULT_TIMEOUT_MS = 120000;
 
 function getApiBearerToken(): string {
-  return import.meta.env.VITE_API_BEARER_TOKEN?.trim() || '';
+  return readPublicEnv('VITE_API_BEARER_TOKEN');
 }
 
 function normalizeTimeoutMs(value: unknown): number {
@@ -60,27 +61,33 @@ export const generateCardContent = async (
 
   const timeoutMs = normalizeTimeoutMs(DEFAULT_TIMEOUT_MS);
 
-  const configuredBaseUrl = llmSettings?.baseURL?.trim() || import.meta.env.VITE_API_BASE_URL?.trim();
-  const { endpoint, sameOrigin } = resolveEndpoint({
+  const configuredBaseUrl = llmSettings?.baseURL?.trim() || readPublicEnv('VITE_API_BASE_URL');
+  const primary = resolveEndpoint({
     configuredBaseUrl,
     fallbackBaseUrl: '/api',
     actionPath: '/generate',
     allowCrossOriginApi: isCrossOriginApiAllowed(),
   });
+  const fallback = resolveEndpoint({
+    configuredBaseUrl: '/api',
+    fallbackBaseUrl: '/api',
+    actionPath: '/generate',
+    allowCrossOriginApi: true,
+  });
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
-  try {
+  const doRequest = async (target: { endpoint: string; sameOrigin: boolean }) => {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
 
-    const token = resolveBearerToken(getApiBearerToken(), sameOrigin);
+    const token = resolveBearerToken(getApiBearerToken(), target.sameOrigin);
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(endpoint, {
+    return fetch(target.endpoint, {
       method: 'POST',
       headers,
       body: JSON.stringify({
@@ -88,6 +95,20 @@ export const generateCardContent = async (
       }),
       signal: controller.signal,
     });
+  };
+
+  try {
+    let response: Response;
+    try {
+      response = await doRequest(primary);
+    } catch (error) {
+      const canFallback = Boolean(configuredBaseUrl) && primary.endpoint !== fallback.endpoint;
+      const isNetworkError = error instanceof TypeError;
+      if (!canFallback || !isNetworkError) {
+        throw error;
+      }
+      response = await doRequest(fallback);
+    }
 
     if (!response.ok) {
       const message = await parseErrorMessage(response);
@@ -102,6 +123,12 @@ export const generateCardContent = async (
       throw new Error(`Generation request timed out after ${timeoutMs}ms`);
     }
     console.error('Failed to generate content:', error);
+    if (error instanceof TypeError) {
+      throw new Error(
+        `Failed to reach generation API. Tried: ${primary.endpoint}. ` +
+        'Please check "App Backend API Base URL" in settings or use /api.'
+      );
+    }
     if (error instanceof Error) {
       throw error;
     }

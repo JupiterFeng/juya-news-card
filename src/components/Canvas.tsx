@@ -17,10 +17,6 @@ interface CanvasProps {
   exportRef?: React.MutableRefObject<HTMLDivElement | null>;
 }
 
-if (typeof document !== 'undefined') {
-  document.documentElement.dataset.p2vBottomReserved = String(BOTTOM_RESERVED_PX);
-}
-
 const Canvas: React.FC<CanvasProps> = ({
   data,
   template,

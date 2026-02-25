@@ -1,28 +1,17 @@
 services:
-  # 前端服务 - nginx 托管静态文件
-  frontend:
-    container_name: juya-news-card-frontend
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    ports:
-      - "3000:80"
-    depends_on:
-      - render-api
-    restart: unless-stopped
-
-  # 渲染 API 服务 - Playwright + Chromium
-  render-api:
-    container_name: juya-news-card-render-api
+  app:
+    container_name: juya-news-card-app
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
     env_file:
+      - path: .env
+        required: false
       - path: .env.docker
         required: false
     environment:
-      RENDER_API_HOST: 0.0.0.0
-      RENDER_API_PORT: 8080
-    expose:
-      - "8080"
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
     restart: unless-stopped

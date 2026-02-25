@@ -3,6 +3,7 @@ import {
   resolveBearerToken,
   resolveEndpoint,
 } from '../utils/request-security';
+import { readPublicEnv } from '../utils/runtime-env';
 
 export interface BackendLlmRuntimeConfig {
   allowClientLlmSettings: boolean;
@@ -38,7 +39,7 @@ function toStringValue(value: unknown, fallback = ''): string {
 }
 
 function getApiBearerToken(): string {
-  return import.meta.env.VITE_API_BEARER_TOKEN?.trim() || '';
+  return readPublicEnv('VITE_API_BEARER_TOKEN');
 }
 
 async function parseErrorMessage(response: Response): Promise<string> {
@@ -63,23 +64,42 @@ async function parseErrorMessage(response: Response): Promise<string> {
 }
 
 export async function fetchBackendLlmRuntimeConfig(configuredBaseUrl?: string): Promise<BackendLlmRuntimeConfig> {
-  const { endpoint, sameOrigin } = resolveEndpoint({
+  const primary = resolveEndpoint({
     configuredBaseUrl: configuredBaseUrl?.trim(),
     fallbackBaseUrl: '/api',
     actionPath: '/config',
     allowCrossOriginApi: isCrossOriginApiAllowed(),
   });
-
-  const headers: Record<string, string> = {};
-  const token = resolveBearerToken(getApiBearerToken(), sameOrigin);
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
-
-  const response = await fetch(endpoint, {
-    method: 'GET',
-    headers,
+  const fallback = resolveEndpoint({
+    configuredBaseUrl: '/api',
+    fallbackBaseUrl: '/api',
+    actionPath: '/config',
+    allowCrossOriginApi: true,
   });
+
+  const doRequest = async (target: { endpoint: string; sameOrigin: boolean }) => {
+    const headers: Record<string, string> = {};
+    const token = resolveBearerToken(getApiBearerToken(), target.sameOrigin);
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+    return fetch(target.endpoint, {
+      method: 'GET',
+      headers,
+    });
+  };
+
+  let response: Response;
+  try {
+    response = await doRequest(primary);
+  } catch (error) {
+    const canFallback = Boolean(configuredBaseUrl?.trim()) && primary.endpoint !== fallback.endpoint;
+    const isNetworkError = error instanceof TypeError;
+    if (!canFallback || !isNetworkError) {
+      throw error;
+    }
+    response = await doRequest(fallback);
+  }
 
   if (!response.ok) {
     const message = await parseErrorMessage(response);

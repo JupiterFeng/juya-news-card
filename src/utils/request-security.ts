@@ -1,3 +1,5 @@
+import { readPublicEnv } from './runtime-env';
+
 type ResolveEndpointOptions = {
   configuredBaseUrl?: string;
   fallbackBaseUrl: string;
@@ -31,11 +33,11 @@ function toBooleanFlag(value: string | undefined): boolean {
 }
 
 export function isCrossOriginApiAllowed(): boolean {
-  return toBooleanFlag(import.meta.env.VITE_ALLOW_CROSS_ORIGIN_API);
+  return toBooleanFlag(readPublicEnv('VITE_ALLOW_CROSS_ORIGIN_API'));
 }
 
 export function isCrossOriginBearerAllowed(): boolean {
-  return toBooleanFlag(import.meta.env.VITE_ALLOW_CROSS_ORIGIN_BEARER);
+  return toBooleanFlag(readPublicEnv('VITE_ALLOW_CROSS_ORIGIN_BEARER'));
 }
 
 export function resolveEndpoint(options: ResolveEndpointOptions): ResolvedEndpoint {

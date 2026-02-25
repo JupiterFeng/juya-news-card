@@ -237,8 +237,8 @@ const md3LightThemeOptions: ThemeOptions = {
           scrollBehavior: 'smooth',
         },
         body: {
-          '-webkit-font-smoothing': 'antialiased',
-          '-moz-osx-font-smoothing': 'grayscale',
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale',
           textRendering: 'optimizeLegibility',
         },
         // 主题预览全局兜底：统一布局宽度类与中间字号类
