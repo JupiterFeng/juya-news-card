@@ -1,8 +1,8 @@
 import { BOTTOM_RESERVED_PX } from './layout-calculator';
 import { readPublicEnv } from './runtime-env';
 
-const STORAGE_KEY = 'p2v-global-settings-v2';
-const LEGACY_STORAGE_KEY = 'p2v-global-settings-v1';
+const STORAGE_KEY = 'p2v-global-settings-v3';
+const LEGACY_STORAGE_KEYS = ['p2v-global-settings-v2', 'p2v-global-settings-v1'] as const;
 const STORAGE_VERSION = 3 as const;
 
 export type ExportFormat = 'png' | 'svg';
@@ -40,11 +40,6 @@ type PersistedGlobalSettingsV3 = {
   version: typeof STORAGE_VERSION;
   overrides: Partial<AppGlobalSettings>;
 };
-
-function getRuntimeEnv(): Partial<ImportMetaEnv> {
-  const runtimeMeta = import.meta as ImportMeta & { env?: ImportMetaEnv };
-  return runtimeMeta.env || {};
-}
 
 function clampNumber(
   value: unknown,
@@ -165,9 +160,7 @@ function parsePersistedSettings(raw: string): Partial<AppGlobalSettings> | null 
   ) {
     return objectValue.overrides as Partial<AppGlobalSettings>;
   }
-
-  // Backward compatibility: old payload is plain settings object.
-  return parsed as Partial<AppGlobalSettings>;
+  return null;
 }
 
 function buildSettingsOverrides(
@@ -214,7 +207,9 @@ function buildSettingsOverrides(
 function removeLegacySettings(): void {
   if (typeof window === 'undefined') return;
   try {
-    window.localStorage.removeItem(LEGACY_STORAGE_KEY);
+    for (const key of LEGACY_STORAGE_KEYS) {
+      window.localStorage.removeItem(key);
+    }
   } catch {
     // ignore
   }
@@ -233,6 +228,11 @@ export function loadGlobalSettings(): AppGlobalSettings {
 
     const parsed = parsePersistedSettings(raw);
     if (!parsed) {
+      try {
+        window.localStorage.removeItem(STORAGE_KEY);
+      } catch {
+        // ignore
+      }
       removeLegacySettings();
       return defaults;
     }

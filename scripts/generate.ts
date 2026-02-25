@@ -123,9 +123,13 @@ Return ONLY raw JSON, no other text.`;
     const page = await context.newPage();
 
     // Inject local font for screenshot if available
-    const fontPath = path.join(process.cwd(), 'assets/htmlFont.ttf');
+    const fontPathCandidates = [
+      path.join(process.cwd(), 'assets', 'htmlFont.ttf'),
+      path.join(process.cwd(), 'public', 'assets', 'htmlFont.ttf'),
+    ];
+    const fontPath = fontPathCandidates.find(p => fs.existsSync(p));
     let finalHtml = html;
-    if (fs.existsSync(fontPath)) {
+    if (fontPath) {
       const fontBase64 = fs.readFileSync(fontPath).toString('base64');
       const fontFace = `
         <style>

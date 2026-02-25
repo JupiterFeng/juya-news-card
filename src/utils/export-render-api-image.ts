@@ -6,7 +6,7 @@ import {
 } from './request-security';
 import { readPublicEnv } from './runtime-env';
 
-const DEFAULT_RENDER_API_PORT = 8080;
+const DEFAULT_RENDER_API_PORT = 3000;
 const DEFAULT_RENDER_API_TIMEOUT_MS = 12000;
 
 type RenderDpr = 1 | 2;
@@ -79,7 +79,7 @@ async function parseRenderApiErrorMessage(response: Response): Promise<string> {
 export async function generatePngBlobFromRenderApi(options: RenderApiPngOptions): Promise<Blob> {
   const { endpoint, sameOrigin } = resolveEndpoint({
     configuredBaseUrl: resolveRenderApiBaseUrl(options.baseUrl),
-    fallbackBaseUrl: `http://127.0.0.1:${resolveRenderApiPort()}`,
+    fallbackBaseUrl: `http://127.0.0.1:${resolveRenderApiPort()}/api`,
     actionPath: '/render',
     allowCrossOriginApi: isCrossOriginApiAllowed(),
   });

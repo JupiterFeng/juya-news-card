@@ -122,8 +122,12 @@ function buildChecklistMarkdown(
 }
 
 function injectFontFace(html: string): string {
-  const fontPath = path.join(process.cwd(), 'assets/htmlFont.ttf');
-  if (!fs.existsSync(fontPath)) return html;
+  const fontPathCandidates = [
+    path.join(process.cwd(), 'assets', 'htmlFont.ttf'),
+    path.join(process.cwd(), 'public', 'assets', 'htmlFont.ttf'),
+  ];
+  const fontPath = fontPathCandidates.find(p => fs.existsSync(p));
+  if (!fontPath) return html;
   const fontBase64 = fs.readFileSync(fontPath).toString('base64');
   const fontFace = `
     <style>

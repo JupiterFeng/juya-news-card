@@ -1,5 +1,5 @@
 import metaJson from './meta.json';
-import { DEFAULT_TEMPLATE, TEMPLATES } from './index';
+import { TEMPLATES } from './index';
 import type { TemplateConfig } from './types';
 export { DEFAULT_TEMPLATE } from './catalog';
 
@@ -39,8 +39,6 @@ const TEMPLATE_SUMMARIES: Record<string, TemplateSummary> = Object.fromEntries(
     },
   ]),
 );
-
-export { DEFAULT_TEMPLATE };
 
 export function getTemplateSummaries(): Record<string, TemplateSummary> {
   return TEMPLATE_SUMMARIES;

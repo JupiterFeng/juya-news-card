@@ -214,7 +214,7 @@ const GlobalSettingsDrawer: React.FC<GlobalSettingsDrawerProps> = ({
           label="App Backend API Base URL"
           value={settings.llm.baseURL}
           onChange={(event) => onUpdateApiBaseUrl(event.target.value)}
-          helperText="例如 `/api` 或 `http://127.0.0.1:8080/api`；默认仅允许同源地址。"
+          helperText="例如 `/api` 或 `http://127.0.0.1:3000/api`；默认仅允许同源地址。"
         />
         <Typography
           variant="caption"

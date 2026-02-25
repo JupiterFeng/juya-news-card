@@ -270,8 +270,9 @@ export async function renderPng(body: Json, authHeader: string | null): Promise<
     const page = await context.newPage();
     await page.setContent(html, { waitUntil: 'load', timeout: 12_000 });
     await page.evaluate(async () => {
-      if ((document as Document & { fonts?: FontFaceSet }).fonts?.ready) {
-        await (document as Document & { fonts?: FontFaceSet }).fonts?.ready;
+      const fonts = (document as Document & { fonts?: FontFaceSet }).fonts;
+      if (fonts) {
+        await fonts.ready;
       }
     });
     await page.waitForTimeout(180);

@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { loadGlobalSettings, saveGlobalSettings } from '../src/utils/global-settings';
+import { createDefaultGlobalSettings, loadGlobalSettings, saveGlobalSettings } from '../src/utils/global-settings';
 
-const STORAGE_KEY = 'p2v-global-settings-v2';
+const STORAGE_KEY = 'p2v-global-settings-v3';
 
 type MemoryWindow = {
   location: { origin: string };
@@ -43,7 +43,7 @@ function uninstallWindow(): void {
   Reflect.deleteProperty(globalThis, 'window');
 }
 
-test('loadGlobalSettings drops legacy llm fields from cached payload', () => {
+test('loadGlobalSettings ignores legacy payload and clears it', () => {
   const windowMock = installWindow();
   try {
     windowMock.localStorage.setItem(STORAGE_KEY, JSON.stringify({
@@ -60,18 +60,17 @@ test('loadGlobalSettings drops legacy llm fields from cached payload', () => {
       },
     }));
 
+    const defaults = createDefaultGlobalSettings();
     const loaded = loadGlobalSettings();
-    assert.equal(loaded.bottomReservedPx, 123);
-    assert.equal(loaded.llm.baseURL, 'http://127.0.0.1:8080/api');
-    assert.equal(Object.prototype.hasOwnProperty.call(loaded.llm, 'model'), false);
+    assert.deepEqual(loaded, defaults);
+    assert.equal(windowMock.localStorage.getItem(STORAGE_KEY), null);
 
     saveGlobalSettings(loaded);
     const raw = windowMock.localStorage.getItem(STORAGE_KEY);
     assert.ok(raw);
     const parsed = JSON.parse(raw);
     assert.equal(parsed.version, 3);
-    assert.deepEqual(parsed.overrides?.llm, { baseURL: 'http://127.0.0.1:8080/api' });
-    assert.equal(parsed.overrides?.llm?.model, undefined);
+    assert.deepEqual(parsed.overrides, {});
   } finally {
     uninstallWindow();
   }
