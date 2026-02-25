@@ -1,31 +1,27 @@
 # Architecture
 
 ## Scope
-This project is split into 5 runtime parts (+ 1 standalone prompt asset):
-- `Frontend` (`src/`): UI editing, template preview, export trigger.
-- `API` (`server/render-api.ts`): `/api/generate` + `/render` + health/theme endpoints.
+This project is split into 4 runtime parts (+ 1 standalone prompt asset):
+- `Next App` (`app/`, `pages/api/`, `src/`, `server/`): UI + API in one process (page + `/api/*`).
 - `CLI` (`scripts/`): local scripts for generation, batch rendering, and audits.
 - `Skill` (`.agents/skills/juya-news-card-operator/SKILL.md`): workflow constraints for agent operation.
-- `Runtime Prompt` (`src/services/llm-prompt.ts`): text-to-card extraction rules used by API.
+- `Runtime Prompt` (`src/services/llm-prompt.ts`): text-to-card extraction rules used by `/api/generate`.
 - `Standalone Prompt` (`claude-style-prompt.md`): not part of runtime; can be given to any AI to generate claudeStyle HTML.
 
 ## Runtime Flow
 
 ```mermaid
 flowchart LR
-  user[User] --> fe["Frontend\nsrc/"]
+  user[User] --> web["Next App\napp/ + src/"]
   user --> cli["CLI\nscripts/"]
   user --> agent["Agent Skill\n.agents/skills/..."]
   user --> any_ai["Any AI"]
 
-  fe -->|"POST /api/generate"| api["Render API\nserver/render-api.ts"]
-  fe -->|"Browser PNG export"| fe_png["PNG (Browser)"]
-  fe -->|"POST /render"| api
-
-  api -->|"DEFAULT_SYSTEM_PROMPT"| runtime_prompt["Runtime Prompt\nsrc/services/llm-prompt.ts"]
-  api -->|"LLM_API_KEY / BASE_URL / MODEL"| llm["Upstream LLM"]
-  api -->|"SSR + Playwright"| api_png["PNG (Render API)"]
-  api --> templates["Templates\nsrc/templates/"]
+  web -->|"DEFAULT_SYSTEM_PROMPT"| runtime_prompt["Runtime Prompt\nsrc/services/llm-prompt.ts"]
+  web -->|"POST /api/generate"| llm["Upstream LLM"]
+  web -->|"POST /api/render (Playwright)"| api_png["PNG (Server)"]
+  web -->|"Browser export"| fe_png["PNG/SVG (Browser)"]
+  web --> templates["Templates\nsrc/templates/"]
 
   cli -->|"optional LLM call"| llm
   cli -->|"SSR + Playwright"| cli_png["PNG (CLI)"]
@@ -40,8 +36,7 @@ flowchart LR
 ## Module Responsibilities
 | Part | Inputs | Outputs |
 | --- | --- | --- |
-| Frontend | Raw text, theme selection, global settings | API requests, browser-side PNG |
-| API | Structured render request or raw text | Generated card JSON, render PNG |
+| Next App | Raw text, theme selection, global settings | API requests, browser-side PNG/SVG, server-side render PNG |
 | CLI | Command args, env vars, mock data | HTML/PNG files under `output/` |
 | Skill | User goal + repository context | Standardized execution path (template -> content -> render) |
 | Runtime Prompt | Raw text | Markdown/JSON-like structured card content |
@@ -54,4 +49,4 @@ flowchart LR
 
 ## Minimal Env Strategy
 - Local quick start: configure all 3 items `LLM_API_KEY`, `LLM_API_BASE_URL`, `LLM_MODEL`.
-- Production hardening: set `API_BEARER_TOKEN`, `ALLOW_UNAUTHENTICATED_WRITE=false`, and strict `CORS_ALLOW_ORIGIN`.
+- Production hardening: set `API_BEARER_TOKEN` and `ALLOW_UNAUTHENTICATED_WRITE=false`.

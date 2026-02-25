@@ -2,40 +2,84 @@
 
 ## Overview
 
-Service file: `server/render-api.ts`
+This repo no longer runs a standalone `render-api` server. Rendering and generation APIs are provided by the Next.js app:
 
-- Base URL default: `http://127.0.0.1:8080`
-- Protected write API: `POST /render` (and aliases)
-- Read APIs: `GET /healthz`, `GET /themes`
-- Use this only when local CLI rendering is not suitable
+- Core logic: `server/next-runtime.ts`
+- API routes: `pages/api/*`
+- Health route: `app/healthz/route.ts`
+
+Default base URL: `http://127.0.0.1:3000`
+
+Use this only when local CLI rendering is not suitable.
 
 ## Auth
 
-`POST /render` requires:
+Write endpoints require a bearer token unless `ALLOW_UNAUTHENTICATED_WRITE=true` (default when `NODE_ENV !== 'production'`):
 
-- `Authorization: Bearer <API_BEARER_TOKEN>`, unless server is started with `ALLOW_UNAUTHENTICATED_WRITE=true`
+- `POST /api/render`
+- `POST /api/generate`
 
-## `GET /healthz`
+Header:
 
-Purpose: readiness and queue visibility.
+- `Authorization: Bearer <API_BEARER_TOKEN>`
+
+## `GET /healthz` / `GET /api/healthz`
+
+Purpose: readiness.
+
+Examples:
+
+```bash
+curl http://127.0.0.1:3000/healthz
+curl http://127.0.0.1:3000/api/healthz
+```
+
+## `GET /api/themes`
+
+Purpose: list SSR-ready templates accepted by `/api/render`.
 
 Example:
 
 ```bash
-curl http://127.0.0.1:8080/healthz
+curl http://127.0.0.1:3000/api/themes
 ```
 
-## `GET /themes`
+## `GET /api/config`
 
-Purpose: list SSR-ready templates accepted by `/render`.
+Purpose: return public backend config (LLM runtime config without secrets).
 
 Example:
 
 ```bash
-curl http://127.0.0.1:8080/themes
+curl http://127.0.0.1:3000/api/config
 ```
 
-## `POST /render`
+## `POST /api/generate`
+
+Extract structured `{ mainTitle, cards[] }` from raw news text.
+
+Request JSON:
+
+```json
+{
+  "inputText": "string"
+}
+```
+
+Response JSON:
+
+```json
+{
+  "data": {
+    "mainTitle": "string",
+    "cards": [
+      { "title": "string", "desc": "string", "icon": "article" }
+    ]
+  }
+}
+```
+
+## `POST /api/render`
 
 Render structured card content into PNG.
 
@@ -63,16 +107,7 @@ Rules:
 Response:
 
 - `200 image/png` on success
-- Includes headers like `X-Template-Id`, `X-DPR`, `X-Request-Id`
 
-## Common error codes
+## Notes
 
-- `400 INVALID_JSON` or `INVALID_REQUEST`
-- `401 UNAUTHORIZED`
-- `403 CORS_FORBIDDEN`
-- `429 RATE_LIMITED` or `QUEUE_FULL`
-- `500 RENDER_FAILED`
-
-## Optional endpoint
-
-`POST /api/generate` exists, but this skill's default mode is AI-side content generation followed by `/render`.
+- Server-side CORS / rate limiting is not implemented in the Next API layer. If you need them, put the app behind a gateway (Nginx/Caddy/Cloudflare) and enforce policies there.

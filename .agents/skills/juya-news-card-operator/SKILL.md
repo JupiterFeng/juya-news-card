@@ -1,6 +1,6 @@
 ---
 name: juya-news-card-operator
-description: Operate juya-news-card as a local CLI text-to-image card tool. Use when Codex should transform user text into final card content itself and render PNG directly with Playwright plus SSR-ready templates, without running render-api.
+description: Operate juya-news-card as a local CLI text-to-image card tool. Use when Codex should transform user text into final card content itself and render PNG directly with Playwright plus SSR-ready templates, without starting the Next.js app.
 ---
 
 # Juya News Card Operator
@@ -26,7 +26,7 @@ Use this skill to treat the repository as an executable tool, not a codebase to 
 ## Operating Rules
 
 - Generate render content in-agent.
-- Prefer local CLI rendering over starting render-api.
+- Prefer local CLI rendering over starting the Next.js app.
 - Do not place upstream LLM secrets in `VITE_*` variables.
 - On error, inspect content JSON and template ID first, then Playwright environment.
 

@@ -118,7 +118,6 @@ LLM_MODEL=gpt-4o-mini
 ```env
 API_BEARER_TOKEN=change-me
 ALLOW_UNAUTHENTICATED_WRITE=false
-CORS_ALLOW_ORIGIN=https://your-frontend-domain.example
 ```
 
 补充：
@@ -128,7 +127,7 @@ CORS_ALLOW_ORIGIN=https://your-frontend-domain.example
 - UI 里的 `App Backend API Base URL` 对应 `NEXT_PUBLIC_API_BASE_URL`（或 `VITE_API_BASE_URL` 兼容名），表示本项目后端地址（用于 `/api/generate`），不是上游 LLM 的 `LLM_API_BASE_URL`。
 - `LLM_*` 给服务端调用上游模型用。
 - UI 的 LLM 参数为后端只读展示（来自 `/api/config`）；`localStorage` 仅缓存布局/导出/图标映射和 App Backend API Base URL。
-- 其余高级参数（并发、限流、超时、Chromium）都已给默认值，按需再去 `.env.example` 取消注释即可。
+- 其余高级参数（LLM 超时/重试、输入长度、Chromium flags）都已给默认值，按需再去 `.env.example` 取消注释即可。
 
 ## API
 - `GET /api/healthz` 或 `GET /healthz`：健康检查
@@ -152,7 +151,7 @@ CORS_ALLOW_ORIGIN=https://your-frontend-domain.example
 
 ## 生产部署建议
 - 让服务监听 `127.0.0.1`，通过 Nginx/Caddy 暴露 HTTPS。
-- 将 `CORS_ALLOW_ORIGIN` 收紧到你的站点域名。
+- 如果需要跨域访问（把 API 给别的前端用），在网关层配置 CORS 白名单。
 - 开启 `API_BEARER_TOKEN`（或在网关层做鉴权）。
 - 生产环境不要把真实上游密钥暴露到浏览器，统一走 `/api/generate`。
 - 将 Playwright 浏览器安装放到镜像构建阶段：
@@ -170,7 +169,8 @@ npx playwright install chromium-headless-shell
 - `claude-style-prompt.md`：独立 Prompt（项目外），供任意 AI 生成 `claudeStyle` HTML；不被运行时自动读取
 - `docs/ARCHITECTURE.md`：架构与数据流说明
 - `tests/`：测试与 mock 数据
-- `assets/`：可选本地资源（`assets/htmlFont.ttf` 可为空）
+- `public/assets/`：静态资源（包含 `htmlFont.ttf`，供模板 `@font-face` 使用）
+- `assets/`：仓库内图片资产（README 截图等）；可选用 `assets/htmlFont.ttf` 覆盖 CLI 截图用字体
 
 ## 开源说明
 - MIT License（见 `LICENSE`）
