@@ -1,6 +1,7 @@
 import metaJson from './meta.json';
 import { DEFAULT_TEMPLATE, TEMPLATES } from './index';
 import type { TemplateConfig } from './types';
+export { DEFAULT_TEMPLATE } from './catalog';
 
 type TemplateMetaEntry = {
   name?: string;

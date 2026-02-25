@@ -6,6 +6,7 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { GeneratedContent } from '../types';
 import type { TemplateConfig } from '../templates/types';
+import { DEFAULT_TEMPLATE } from '../templates/catalog';
 import {
   BOTTOM_RESERVED_PX,
   calculateStandardLayout,
@@ -22,7 +23,7 @@ const DEFAULT_MATERIAL_SYMBOLS_URL = 'https://fonts.googleapis.com/css2?family=M
 const DEFAULT_COMMON_GOOGLE_FONTS_URL = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Poppins:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Exo+2:wght@400;600;700&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=Press+Start+2P&family=VT323&family=Fira+Code:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Quicksand:wght@500;600;700&family=Playfair+Display:wght@400;500;600;700;900&family=Lora:wght@400;500;600&family=Righteous&family=Noto+Sans+SC:wght@400;500;700&family=Google+Sans:wght@400;500;700&display=swap';
 
 let templateResolver: ((id: string) => TemplateConfig | undefined) | null = null;
-let defaultTemplateId = 'claudeStyle';
+let defaultTemplateId = DEFAULT_TEMPLATE;
 
 export function registerTemplateResolver(options: {
   defaultTemplateId: string;
@@ -272,18 +273,19 @@ function generateLayoutAdjustmentScript(
 /**
  * 生成可下载的 HTML (Unified React SSR)
  */
-export const generateDownloadableHtml = (
+export function generateDownloadableHtml(
   data: GeneratedContent,
   templateId: string = defaultTemplateId,
   options?: {
     bottomReservedPx?: number;
   },
-): string => {
+): string {
   const template = templateResolver?.(templateId);
   if (!template) {
     throw new Error(
       `Unknown templateId: "${templateId}". ` +
-      'Template resolver not initialized or template missing.'
+      'Template resolver not initialized or template missing. ' +
+      'Call ensureTemplateResolverRegistered() before rendering.'
     );
   }
 
@@ -342,4 +344,4 @@ export const generateDownloadableHtml = (
   ${layoutScript}
 </body>
 </html>`;
-};
+}

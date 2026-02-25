@@ -6,8 +6,8 @@
  */
 
 import type { GeneratedContent } from '../src/types';
-import { DEFAULT_TEMPLATE } from '../src/templates/index';
-import { generateDownloadableHtml } from '../src/utils/template';
+import { DEFAULT_TEMPLATE } from '../src/templates/catalog';
+import { generateTemplateHtml } from '../src/templates/ssr-runtime';
 
 /**
  * 从 React 组件生成完整 HTML 文档
@@ -16,5 +16,5 @@ export const generateHtmlFromReactComponent = (
   data: GeneratedContent,
   templateId: string = DEFAULT_TEMPLATE
 ): string => {
-  return generateDownloadableHtml(data, templateId);
+  return generateTemplateHtml(data, templateId);
 };
